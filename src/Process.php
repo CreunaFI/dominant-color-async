@@ -42,7 +42,7 @@ class Process extends WP_Background_Process
         if ($this->validate_medium_image_size($metadata)) {
             // We have medium image to work with
             $full_path = $base_dir . '/' . dirname($metadata['file']) . '/' . $metadata['sizes']['medium']['file'];
-            $dominant_color = ColorThief::getColor($full_path);
+            $dominant_color = ColorThief::getColor($full_path, 5);
         } else {
             // We need to generate medium image
 
@@ -59,7 +59,7 @@ class Process extends WP_Background_Process
             // finally we save the image as a new file
             $img->save(plugin_dir_path(__FILE__) . '/bar.png');
 
-            $dominant_color = ColorThief::getColor($img->getCore());
+            $dominant_color = ColorThief::getColor($img->getCore(), 5);
         }
 
         DominantColorAsync::debug($this->rgb_to_hex($dominant_color));
