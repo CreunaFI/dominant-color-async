@@ -3,6 +3,7 @@
 namespace DominantColorAsync;
 
 use ColorThief\ColorThief;
+use Intervention\Image\ImageManagerStatic;
 use WP_Background_Process;
 
 class Process extends WP_Background_Process
@@ -34,14 +35,34 @@ class Process extends WP_Background_Process
         $attachment_id = $data['attachment_id'];
         $metadata = $data['metadata'];
 
+        $base_dir = wp_upload_dir()['basedir'];
+
+        $dominant_color = null;
+
         if ($this->validate_medium_image_size($metadata)) {
             // We have medium image to work with
-            $full_path = wp_upload_dir()['basedir'] . '/' . dirname($metadata['file']) . '/' . $metadata['sizes']['medium']['file'];
-            $color_thief = ColorThief::getColor($full_path);
-            DominantColorAsync::debug($this->rgb_to_hex($color_thief));
+            $full_path = $base_dir . '/' . dirname($metadata['file']) . '/' . $metadata['sizes']['medium']['file'];
+            $dominant_color = ColorThief::getColor($full_path);
         } else {
             // We need to generate medium image
+
+            $img = ImageManagerStatic::make($base_dir . '/' . $metadata['file']);
+            if ($img->width() > $img->height()) {
+                $img->widen(300, function ($constraint) {
+                    $constraint->upsize();
+                });
+            } else {
+                $img->heighten(300, function ($constraint) {
+                    $constraint->upsize();
+                });
+            }
+            // finally we save the image as a new file
+            $img->save(plugin_dir_path(__FILE__) . '/bar.png');
+
+            $dominant_color = ColorThief::getColor($img->getCore());
         }
+
+        DominantColorAsync::debug($this->rgb_to_hex($dominant_color));
 
         return false;
     }
@@ -57,7 +78,8 @@ class Process extends WP_Background_Process
         parent::complete();
     }
 
-    public function validate_medium_image_size($metadata) {
+    public function validate_medium_image_size($metadata)
+    {
         $sizes = get_intermediate_image_sizes();
         // Medium size exists
         if (!collect($sizes)->contains('medium')) {
@@ -66,14 +88,16 @@ class Process extends WP_Background_Process
         $width = (int)get_option("medium_size_w");
         $height = (int)get_option('medium_size_h');
         $crop = (bool)get_option('medium_crop');
+
         // Medium size equals 300x300 cropped and metadata contains medium
-        if ($width == 300 && $height === 300 && $crop === false && $metadata['sizes'] && $metadata['sizes']['medium']) {
+        if ($width === 300 && $height === 300 && $crop === false && $metadata['sizes'] && $metadata['sizes']['medium']) {
             return true;
         }
         return false;
     }
 
-    public function rgb_to_hex($array) {
+    public function rgb_to_hex($array)
+    {
         return sprintf("#%02x%02x%02x", $array[0], $array[1], $array[2]);
     }
 }

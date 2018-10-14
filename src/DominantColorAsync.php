@@ -31,7 +31,7 @@ class DominantColorAsync
         if (!wp_verify_nonce($_GET['_wpnonce'], 'process')) {
             return;
         }
-        if ($_GET['process'] === 'all') {
+        if ('all' === $_GET['process']) {
             $this->handle_all();
         }
     }
@@ -47,6 +47,7 @@ class DominantColorAsync
             'attachment_id' => $attachment_id,
             'metadata' => $metadata,
         ]);
+
         $this->process_all->save()->dispatch();
         return $metadata;
     }
