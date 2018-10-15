@@ -39,6 +39,9 @@ class Process extends WP_Background_Process
         if ($type === 'dominant_color') {
             $this->calculate_dominant_color($attachment_id, $metadata);
         }
+        if ($type === 'transparency') {
+            $this->calculate_transparency($attachment_id, $metadata);
+        }
 
         return false;
     }
@@ -65,6 +68,46 @@ class Process extends WP_Background_Process
         }
 
         update_post_meta($attachment_id, 'dominant_color', $this->rgb_to_hex($dominant_color));
+    }
+
+    public function calculate_transparency($attachment_id, $metadata) {
+        $has_transparency = $this->has_transparency($attachment_id, $metadata);
+        update_post_meta($attachment_id, 'has_transparency', $has_transparency);
+    }
+
+    /**
+     * Check whether image has transparency or not
+     * @param int $attachment_id
+     * @param array $metadata
+     * @return bool
+     */
+    public function has_transparency($attachment_id, $metadata) {
+        if (!in_array(get_post_mime_type($attachment_id), ['image/png', 'image/gif'])) {
+            return false;
+        }
+
+        $base_dir = wp_upload_dir()['basedir'];
+        $image = null;
+
+        if ($this->validate_medium_image_size($metadata)) {
+            // We have medium image to work with
+            $full_path = $base_dir . '/' . dirname($metadata['file']) . '/' . $metadata['sizes']['medium']['file'];
+            $image = ImageManagerStatic::make($full_path);
+        } else {
+            // We need to generate medium image
+            $image_path = $base_dir . '/' . $metadata['file'];
+            $image = $this->generate_thumbnail($image_path);
+        }
+
+        // Go through all pixels and if we find a transparent one, return true
+        for ($y = 0; $y < $image->height(); $y++) {
+            for ($x = 0; $x < $image->width(); $x++) {
+                if ($image->pickColor($x, $y)[3] != 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

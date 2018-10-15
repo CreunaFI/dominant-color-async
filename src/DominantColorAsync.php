@@ -47,6 +47,11 @@ class DominantColorAsync
             'attachment_id' => $attachment_id,
             'metadata' => $metadata,
         ]);
+        $this->process_all->push_to_queue([
+            'type' => 'transparency',
+            'attachment_id' => $attachment_id,
+            'metadata' => $metadata,
+        ]);
 
         $this->process_all->save()->dispatch();
         return $metadata;
