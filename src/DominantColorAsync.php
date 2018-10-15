@@ -16,11 +16,25 @@ class DominantColorAsync
             10,
             2
         );
+        add_filter('attachment_fields_to_edit', [$this, 'media_fields'], 10, 2);
     }
 
     public function init()
     {
         $this->process_all = new Process();
+    }
+
+    public function media_fields( $form_fields, $post ) {
+        $dominant_color = null;
+        if (get_post_meta($post->ID, 'dominant_color')) {
+            $dominant_color = get_post_meta($post->ID, 'dominant_color', true);
+        }
+        $form_fields['dominant-color-async'] = [
+            'label' => __('Dominant color', 'dominant-color-async'),
+            'input' => 'html',
+            'html' => '<p>' . $dominant_color .'</p>'
+        ];
+        return $form_fields;
     }
 
     public function process_handler()
