@@ -34,7 +34,21 @@ class Process extends WP_Background_Process
     {
         $attachment_id = $data['attachment_id'];
         $metadata = $data['metadata'];
+        $type = $data['type'];
 
+        if ($type === 'dominant_color') {
+            $this->calculate_dominant_color($attachment_id, $metadata);
+        }
+
+        return false;
+    }
+
+    /**
+     * Calculate dominant color and save it to attachment post meta
+     * @param int $attachment_id
+     * @param array $metadata
+     */
+    public function calculate_dominant_color($attachment_id, $metadata) {
         $base_dir = wp_upload_dir()['basedir'];
 
         $dominant_color = null;
@@ -45,26 +59,12 @@ class Process extends WP_Background_Process
             $dominant_color = ColorThief::getColor($full_path, 5);
         } else {
             // We need to generate medium image
-
-            $img = ImageManagerStatic::make($base_dir . '/' . $metadata['file']);
-            if ($img->width() > $img->height()) {
-                $img->widen(300, function ($constraint) {
-                    $constraint->upsize();
-                });
-            } else {
-                $img->heighten(300, function ($constraint) {
-                    $constraint->upsize();
-                });
-            }
-            // finally we save the image as a new file
-            $img->save(plugin_dir_path(__FILE__) . '/bar.png');
-
-            $dominant_color = ColorThief::getColor($img->getCore(), 5);
+            $image_path = $base_dir . '/' . $metadata['file'];
+            $image = $this->generate_thumbnail($image_path);
+            $dominant_color = ColorThief::getColor($image->getCore(), 5);
         }
 
-        DominantColorAsync::debug($this->rgb_to_hex($dominant_color));
-
-        return false;
+        update_post_meta($attachment_id, 'dominant_color', $this->rgb_to_hex($dominant_color));
     }
 
     /**
@@ -78,6 +78,11 @@ class Process extends WP_Background_Process
         parent::complete();
     }
 
+    /**
+     * Make sure that medium image exists in WP, its size is 300x300 px and it exists in metadata
+     * @param array $metadata
+     * @return bool
+     */
     public function validate_medium_image_size($metadata)
     {
         $sizes = get_intermediate_image_sizes();
@@ -94,6 +99,25 @@ class Process extends WP_Background_Process
             return true;
         }
         return false;
+    }
+
+    /**
+     * Generate 300x300 thumbnail for image
+     * @param string $image_path
+     * @return \Intervention\Image\Image
+     */
+    public function generate_thumbnail($image_path) {
+        $image = ImageManagerStatic::make($image_path);
+        if ($image->width() > $image->height()) {
+            $image->widen(300, function ($constraint) {
+                $constraint->upsize();
+            });
+        } else {
+            $image->heighten(300, function ($constraint) {
+                $constraint->upsize();
+            });
+        }
+        return $image;
     }
 
     public function rgb_to_hex($array)
