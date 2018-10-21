@@ -5,9 +5,11 @@ namespace DominantColorAsync;
 class DominantColorAsync
 {
     protected $process_all;
+    private $plugin_basename;
 
-    public function __construct()
+    public function __construct($plugin_basename)
     {
+        $this->plugin_basename = $plugin_basename;
         add_action('plugins_loaded', [$this, 'init']);
         add_action('admin_enqueue_scripts', [$this, 'load_admin_styles']);
         add_filter(
@@ -17,6 +19,20 @@ class DominantColorAsync
             2
         );
         add_filter('attachment_fields_to_edit', [$this, 'media_fields'], 10, 2);
+
+        // Add settings link on the plugin page
+        add_filter('plugin_action_links_' . $this->plugin_basename, [$this, 'plugin_links']);
+
+        add_action('admin_menu', function () {
+            add_submenu_page(
+                null,
+                __('Dominant color async', 'dominant-color-async'),
+                __('Dominant color async', 'dominant-color-async'),
+                'manage_options',
+                'dominant-color-async',
+                [$this, 'settings_page']
+            );
+        });
     }
 
     public function init()
@@ -76,5 +92,20 @@ class DominantColorAsync
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
             error_log(print_r($message, true));
         }
+    }
+
+    public function plugin_links($links)
+    {
+        $settings_link = "<a href=\"options-general.php?page=dominant-color-async\">" . __('Settings', 'dominant-color-async') . '</a>';
+        array_unshift($links, $settings_link);
+        return $links;
+    }
+
+    /**
+     * Render WordPress plugin settings page
+     */
+    public function settings_page()
+    {
+        echo 'Settings page';
     }
 }

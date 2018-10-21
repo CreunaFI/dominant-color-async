@@ -13,4 +13,4 @@ Domain Path:
 
 require 'vendor/autoload.php';
 
-new \DominantColorAsync\DominantColorAsync();
+new \DominantColorAsync\DominantColorAsync(plugin_basename(__FILE__));
