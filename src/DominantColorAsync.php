@@ -6,10 +6,13 @@ class DominantColorAsync
 {
     protected $process_all;
     private $plugin_basename;
+    private $plugin_dir_path;
 
-    public function __construct($plugin_basename)
+    public function __construct($plugin_basename, $plugin_dir_path)
     {
         $this->plugin_basename = $plugin_basename;
+        $this->plugin_dir_path = $plugin_dir_path;
+
         add_action('plugins_loaded', [$this, 'init']);
         add_action('admin_enqueue_scripts', [$this, 'load_admin_styles']);
         add_filter(
@@ -63,7 +66,7 @@ class DominantColorAsync
 
     function load_admin_styles()
     {
-        wp_enqueue_style('admin_css_foo', plugins_url('assets/style.css', __DIR__), false, '0.0.1');
+        wp_enqueue_style('dominant-color-async', plugins_url('assets/dist/style.css', __DIR__), false, md5_file($this->plugin_dir_path . '/assets/dist/style.css'));
     }
 
     public function add_image_to_queue($metadata, $attachment_id)

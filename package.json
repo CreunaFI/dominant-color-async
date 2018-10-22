@@ -19,5 +19,18 @@
   "devDependencies": {
     "@prettier/plugin-php": "^0.6.0",
     "prettier": "^1.14.2"
+  },
+  "dependencies": {
+    "@babel/core": "^7.1.2",
+    "babel-loader": "^8.0.4",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^1.0.0",
+    "extract-loader": "^3.0.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "node-sass": "^4.9.4",
+    "sass-loader": "^7.1.0",
+    "webpack": "^4.22.0",
+    "webpack-watch-time-plugin": "^0.3.0"
   }
 }
