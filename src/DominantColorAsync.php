@@ -15,6 +15,10 @@ class DominantColorAsync
         $this->plugin_basename = $plugin_basename;
         $this->plugin_dir_path = $plugin_dir_path;
 
+        add_action('init', function () {
+            load_plugin_textdomain('dominant-color-async', null, basename($this->plugin_dir_path) . '/languages');
+        });
+
         add_action('plugins_loaded', [$this, 'init']);
         add_action('admin_enqueue_scripts', [$this, 'load_admin_styles']);
         add_filter(
