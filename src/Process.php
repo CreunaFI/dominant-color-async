@@ -167,4 +167,13 @@ class Process extends WP_Background_Process
     {
         return sprintf("#%02x%02x%02x", $array[0], $array[1], $array[2]);
     }
+
+    /**
+     * Expose protected method
+     * @return bool
+     */
+    public function is_queue_empty()
+    {
+        return parent::is_queue_empty();
+    }
 }

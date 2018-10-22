@@ -2,6 +2,8 @@
 
 namespace DominantColorAsync;
 
+use WP_Query;
+
 class DominantColorAsync
 {
     protected $process_all;
@@ -36,6 +38,8 @@ class DominantColorAsync
                 [$this, 'settings_page']
             );
         });
+
+        add_action('wp_ajax_dominant_color_status', [$this, 'check_status']);
     }
 
     public function init()
@@ -64,9 +68,12 @@ class DominantColorAsync
         return $form_fields;
     }
 
-    function load_admin_styles()
+    function load_admin_styles($hook)
     {
-        wp_enqueue_style('dominant-color-async', plugins_url('assets/dist/style.css', __DIR__), false, md5_file($this->plugin_dir_path . '/assets/dist/style.css'));
+        if ($hook === "settings_page_dominant-color-async") {
+            wp_enqueue_script("dominant-color-async-js", plugins_url('assets/dist/script.js', __DIR__), false, md5_file($this->plugin_dir_path . '/assets/dist/script.js'));
+        }
+        wp_enqueue_style('dominant-color-async-css', plugins_url('assets/dist/style.css', __DIR__), false, md5_file($this->plugin_dir_path . '/assets/dist/style.css'));
     }
 
     public function add_image_to_queue($metadata, $attachment_id)
@@ -110,5 +117,41 @@ class DominantColorAsync
     public function settings_page()
     {
         echo 'Settings page';
+    }
+
+    public function check_status() {
+        $in_progress = !$this->process_all->is_queue_empty();
+        $total_query = new WP_Query([
+            'post_status' => 'inherit',
+            'post_type'=> 'attachment',
+            'posts_per_page' => -1,
+            'post_mime_type' => 'image/jpeg, image/gif, image/png'
+        ]);
+        $total = $total_query->post_count;
+
+        $processed_query = new WP_Query([
+            'post_status' => 'inherit',
+            'post_type' => 'attachment',
+            'posts_per_page' => -1,
+            'post_mime_type' => 'image/jpeg, image/gif, image/png',
+            'meta_query' => [
+                [
+                    'key' => 'dominant_color',
+                    'compare' => 'EXISTS',
+                ],
+                [
+                    'key' => 'has_transparency',
+                    'compare' => 'EXISTS',
+                ],
+            ],
+        ]);
+        $processed = $processed_query->post_count;
+        $percentage = round($processed / $total * 100);
+        wp_send_json([
+            'in_progress' => $in_progress,
+            'percentage' => $percentage,
+            'unprocessed_images' => $processed !== $total,
+        ]);
+        wp_die();
     }
 }
