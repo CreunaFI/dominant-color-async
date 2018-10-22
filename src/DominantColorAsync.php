@@ -153,8 +153,9 @@ class DominantColorAsync
         $percentage = round($processed / $total * 100);
         wp_send_json([
             'in_progress' => $in_progress,
-            'percentage' => $percentage,
-            'unprocessed_images' => $processed !== $total,
+            'total' => $total,
+            'processed_images' => $processed,
+            'unprocessed_images' => $total - $processed,
         ]);
         wp_die();
     }
