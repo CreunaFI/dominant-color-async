@@ -52,16 +52,20 @@ class DominantColorAsync
 
         $dominant_color = get_post_meta($post->ID, 'dominant_color', true) ?: null;
 
-        $html = ' ';
+        $html = null;
 
         if ($dominant_color) {
             $html = '<div class="dominant-color-async">' .
                         '<div class="dominant-color-async-circle" style="background-color: ' . $dominant_color . '"></div>' .
                     '</div>';
+        } else {
+            $html = '<div class="dominant-color-async">' .
+                '<a class="button button-small" href="' . admin_url('admin.php?page=dominant-color-async') .'">' . __('Calculate Missing Color', 'dominant-color-async') . '</a>' .
+                '</div>';
         }
 
         $form_fields['dominant-color-async'] = [
-            'label' => __('Dominant color', 'dominant-color-async'),
+            'label' => __('Dominant Color', 'dominant-color-async'),
             'input' => 'html',
             'html' => $html,
         ];
