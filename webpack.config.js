@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WatchTimePlugin = require('webpack-watch-time-plugin');
+var VueLoaderPlugin = require('vue-loader/lib/plugin');
 const path = require('path');
 
 module.exports = {
@@ -13,11 +14,15 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js'],
+    alias: {
+      vue$: 'vue/dist/vue.esm.js',
+    },
   },
   performance: {
     hints: false,
   },
   devtool: 'inline-source-map',
+  mode: 'development',
   module: {
     rules: [
       {
@@ -47,6 +52,22 @@ module.exports = {
         test: /\.scss$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
+      {
+        test: /\.vue$/,
+        use: {
+          loader: 'vue-loader',
+          options: {
+            loaders: {
+              js: {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['@babel/preset-env'],
+                },
+              },
+            },
+          },
+        },
+      },
     ],
   },
   plugins: [
@@ -55,5 +76,6 @@ module.exports = {
       chunkFilename: '[id].css',
     }),
     new WatchTimePlugin(),
+    new VueLoaderPlugin(),
   ],
 };

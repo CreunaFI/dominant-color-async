@@ -78,8 +78,8 @@ class DominantColorAsync
 
     function load_admin_styles($hook)
     {
-        if ($hook === "settings_page_dominant-color-async") {
-            wp_enqueue_script("dominant-color-async-js", plugins_url('assets/dist/script.js', __DIR__), false, md5_file($this->plugin_dir_path . '/assets/dist/script.js'));
+        if ($hook === "admin_page_dominant-color-async") {
+            wp_enqueue_script("dominant-color-async-js", plugins_url('assets/dist/script.js', __DIR__), false, md5_file($this->plugin_dir_path . '/assets/dist/script.js'), true);
         }
         wp_enqueue_style('dominant-color-async-css', plugins_url('assets/dist/style.css', __DIR__), false, md5_file($this->plugin_dir_path . '/assets/dist/style.css'));
     }
@@ -124,7 +124,9 @@ class DominantColorAsync
      */
     public function settings_page()
     {
-        echo 'Settings page';
+        echo '<div id="dominant-color-app">
+                <dominant-color-app></dominant-color-app>
+              </div>';
     }
 
     public function check_status() {
