@@ -37,6 +37,7 @@
     "vue": "^2.5.17",
     "vue-loader": "^15.4.2",
     "vue-template-compiler": "^2.5.17",
+    "vuex": "^3.0.1",
     "webpack": "^4.22.0",
     "webpack-watch-time-plugin": "^0.3.0"
   }

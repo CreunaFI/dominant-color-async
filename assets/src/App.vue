@@ -1,7 +1,14 @@
 <template>
-  <div>APP</div>
+  <div>{{ processedImages}} / {{ total }}</div>
 </template>
 
 <script>
-  export default {}
+import { mapState } from 'vuex';
+export default {
+  computed: mapState({
+    inProgress: 'in_progress',
+    total: 'total',
+    processedImages: 'processed_images',
+  }),
+};
 </script>
