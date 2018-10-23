@@ -11,6 +11,7 @@ Vue.use(Vuex);
 
 const store = new Store({
   state: {
+    translations: JSON.parse(root.dataset.translations),
     in_progress: false,
     total: 0,
     processed_images: 0,

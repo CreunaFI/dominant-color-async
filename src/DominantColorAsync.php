@@ -78,7 +78,7 @@ class DominantColorAsync
 
     function load_admin_styles($hook)
     {
-        if ($hook === "admin_page_dominant-color-async") {
+        if (!empty($_GET['page']) && $_GET['page'] === 'dominant-color-async') {
             wp_enqueue_script("dominant-color-async-js", plugins_url('assets/dist/script.js', __DIR__), false, md5_file($this->plugin_dir_path . '/assets/dist/script.js'), true);
         }
         wp_enqueue_style('dominant-color-async-css', plugins_url('assets/dist/style.css', __DIR__), false, md5_file($this->plugin_dir_path . '/assets/dist/style.css'));
@@ -124,9 +124,16 @@ class DominantColorAsync
      */
     public function settings_page()
     {
-        echo '<div id="dominant-color-app">
-                <dominant-color-app></dominant-color-app>
-              </div>';
+        $translations = [
+            'unprocessed_images_notice' => __('There are %d images that don’t have color dominance information. Would you like to process them now?', 'dominant-color-async'),
+            'process' => __('Process', 'dominant-color-async'),
+            'dominant_color_async' => __('Dominant color async', 'dominant-color-async')
+        ];
+        $translations = htmlspecialchars(json_encode($translations));
+
+        echo '<div id="dominant-color-app" data-translations="' . $translations . '">';
+        echo '        <dominant-color-app></dominant-color-app>';
+        echo '      </div>';
     }
 
     public function check_status() {

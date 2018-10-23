@@ -8,7 +8,7 @@ msgstr ""
 "Blank WordPress Pot "
 "v1.0.0\n"
 "POT-Creation-Date: "
-"2018-10-22 14:19+0300\n"
+"2018-10-23 23:53+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your "
 "Name <you@example.com>\n"
@@ -44,35 +44,49 @@ msgstr ""
 "__ngettext:1,2;"
 "__ngettext_noop:1,2;_c,"
 "_nc:4c,1,2\n"
-"X-Poedit-Basepath: ../wp-"
-"content/plugins/dominant-"
-"color-async\n"
+"X-Poedit-Basepath: ..\n"
 "Language: en_US\n"
-"X-Generator: Poedit "
-"2.1.1\n"
+"X-Generator: Poedit 2.2\n"
 "X-Poedit-"
 "SearchPath-0: .\n"
 "X-Poedit-"
 "SearchPathExcluded-0: "
 "node_modules\n"
+"X-Poedit-"
+"SearchPathExcluded-1: "
+"assets/dist\n"
 
-#: src/DominantColorAsync.php:34
-#: src/DominantColorAsync.php:35
+#: src/DominantColorAsync.php:38
+#: src/DominantColorAsync.php:39
 msgid ""
 "Dominant color async"
 msgstr ""
 
-#: src/DominantColorAsync.php:63
+#: src/DominantColorAsync.php:67
 msgid ""
 "Calculate Missing Color"
 msgstr ""
 
-#: src/DominantColorAsync.php:68
+#: src/DominantColorAsync.php:72
 msgid "Dominant Color"
 msgstr ""
 
-#: src/DominantColorAsync.php:113
+#: src/DominantColorAsync.php:117
 msgid "Settings"
+msgstr ""
+
+#: src/DominantColorAsync.php:128
+#, php-format
+msgid ""
+"There are %d images that "
+"don’t have color "
+"dominance information. "
+"Would you like to "
+"process them now?"
+msgstr ""
+
+#: src/DominantColorAsync.php:129
+msgid "Process"
 msgstr ""
 
 #: vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425
