@@ -8,7 +8,9 @@
       <h2 class="dominant-color-async-postbox__heading">{{translations.processing_queue}}</h2>
       <div class="dominant-color-async-postbox__inside">
         <div class="dominant-color-async-postbox__status">
-          <div class="dominant-color-async-postbox__status-circle"></div>
+          <div class="dominant-color-async-postbox__status-circle" v-if="!inProgress"></div>
+          <div class="dominant-color-async-postbox__status-circle dominant-color-async-postbox__status-circle--active" v-if="inProgress" v-html="require('!raw-loader!./ic-sync.svg')">
+          </div>
           <div class="dominant-color-async-postbox__status-text">{{statusMessage}}</div>
         </div>
         <div class="dominant-color-async-postbox__progress">
@@ -49,7 +51,7 @@ export default {
   },
   watch: {
     processedImages: function(val) {
-      this.percentage = val / this.total * 100;
+      this.percentage = (val / this.total) * 100;
     },
   },
   mounted() {

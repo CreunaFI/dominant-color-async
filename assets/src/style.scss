@@ -50,11 +50,27 @@
 }
 
 .dominant-color-async-postbox__status-circle {
-  height: 14px;
-  width: 14px;
+  height: 16px;
+  width: 16px;
   background-color: #b9b9b9;
   margin-right: 10px;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.dominant-color-async-postbox__status-circle--active {
+  background-color: #0085ba;
+  svg {
+    animation: spin 2s linear infinite;
+  }
 }
 
 .dominant-color-async-postbox__progress {
