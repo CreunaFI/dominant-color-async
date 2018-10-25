@@ -1,8 +1,20 @@
 <template>
   <div class="wrap">
     <h1 class="wp-heading-inline">{{translations.dominant_color_async}}</h1>
-    <div v-if="unprocessedImages !== 0" class="notice notice-warning">
+    <div v-if="unprocessedImages !== 0 && !inProgress" class="notice notice-warning">
       <p>{{unprocessedImagesMessage}} <a href="#">{{translations.process}}</a></p>
+    </div>
+    <div class="dominant-color-async-postbox">
+      <h2 class="dominant-color-async-postbox__heading">{{translations.processing_queue}}</h2>
+      <div class="dominant-color-async-postbox__inside">
+        <div class="dominant-color-async-postbox__status">
+          <div class="dominant-color-async-postbox__status-circle"></div>
+          <div class="dominant-color-async-postbox__status-text">{{statusMessage}}</div>
+        </div>
+        <div class="dominant-color-async-postbox__progress">
+          <div class="dominant-color-async-postbox__progress-bar" v-bind:style="{width: `${percentage}%`}" ></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -23,6 +35,25 @@ export default {
         this.unprocessedImages
       );
     },
+    statusMessage(state) {
+      if (state.in_progress) {
+        return state.translations.processing;
+      }
+      return state.translations.not_in_progress;
+    },
   }),
+  data: () => {
+    return {
+      percentage: 0,
+    };
+  },
+  watch: {
+    processedImages: function(val) {
+      this.percentage = val / this.total * 100;
+    },
+  },
+  mounted() {
+    this.$store.dispatch('getData');
+  },
 };
 </script>

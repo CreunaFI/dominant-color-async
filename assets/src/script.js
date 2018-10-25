@@ -23,13 +23,16 @@ const store = new Store({
     },
   },
   actions: {
-    getData({ commit }) {
+    getData({ dispatch, commit }) {
       axios
         .post(ajaxurl, qs.stringify({ action: 'dominant_color_status' }), {
           headers: { 'content-type': 'application/x-www-form-urlencoded' },
         })
         .then(response => {
           commit('updateData', response.data);
+          setTimeout(() => {
+            dispatch('getData');
+          }, 1000);
           console.log(response);
         })
         .catch(error => {
@@ -39,10 +42,8 @@ const store = new Store({
   },
 });
 
-store.dispatch('getData');
-
 if (root) {
-  var vm = new Vue({
+  new Vue({
     el: root,
     store,
     components: {

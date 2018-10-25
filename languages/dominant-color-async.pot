@@ -5,10 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: "
-"Blank WordPress Pot "
-"v1.0.0\n"
+"Dominant color async\n"
 "POT-Creation-Date: "
-"2018-10-23 23:53+0300\n"
+"2018-10-25 12:21+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your "
 "Name <you@example.com>\n"
@@ -44,7 +43,9 @@ msgstr ""
 "__ngettext:1,2;"
 "__ngettext_noop:1,2;_c,"
 "_nc:4c,1,2\n"
-"X-Poedit-Basepath: ..\n"
+"X-Poedit-Basepath: ../wp-"
+"content/plugins/dominant-"
+"color-async\n"
 "Language: en_US\n"
 "X-Generator: Poedit 2.2\n"
 "X-Poedit-"
@@ -58,6 +59,7 @@ msgstr ""
 
 #: src/DominantColorAsync.php:38
 #: src/DominantColorAsync.php:39
+#: src/DominantColorAsync.php:130
 msgid ""
 "Dominant color async"
 msgstr ""
@@ -87,6 +89,18 @@ msgstr ""
 
 #: src/DominantColorAsync.php:129
 msgid "Process"
+msgstr ""
+
+#: src/DominantColorAsync.php:131
+msgid "Processing queue"
+msgstr ""
+
+#: src/DominantColorAsync.php:132
+msgid "Not in progress"
+msgstr ""
+
+#: src/DominantColorAsync.php:133
+msgid "Processing"
 msgstr ""
 
 #: vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425

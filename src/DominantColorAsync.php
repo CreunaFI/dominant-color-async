@@ -127,7 +127,10 @@ class DominantColorAsync
         $translations = [
             'unprocessed_images_notice' => __('There are %d images that don’t have color dominance information. Would you like to process them now?', 'dominant-color-async'),
             'process' => __('Process', 'dominant-color-async'),
-            'dominant_color_async' => __('Dominant color async', 'dominant-color-async')
+            'dominant_color_async' => __('Dominant color async', 'dominant-color-async'),
+            'processing_queue' => __('Processing queue', 'dominant-color-async'),
+            'not_in_progress' => __('Not in progress', 'dominant-color-async'),
+            'processing' => __('Processing', 'dominant-color-async'),
         ];
         $translations = htmlspecialchars(json_encode($translations));
 

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Blank WordPress Pot v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2018-10-23 23:53+0300\n"
+"POT-Creation-Date: 2018-10-25 11:51+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -26,6 +26,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 
 #: src/DominantColorAsync.php:38 src/DominantColorAsync.php:39
+#: src/DominantColorAsync.php:130
 msgid "Dominant color async"
 msgstr "Hallitseva väri - asynkroninen"
 
@@ -52,6 +53,18 @@ msgstr ""
 #: src/DominantColorAsync.php:129
 msgid "Process"
 msgstr "Käsittele"
+
+#: src/DominantColorAsync.php:131
+msgid "Processing queue"
+msgstr "Käsittelyjono"
+
+#: src/DominantColorAsync.php:132
+msgid "Not in progress"
+msgstr "Ei käynnissä"
+
+#: src/DominantColorAsync.php:133
+msgid "Processing"
+msgstr "Käsitellään"
 
 #: vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425
 #, php-format
