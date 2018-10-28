@@ -1,0 +1,27 @@
+language: php
+php:
+  - '7.1'
+script:
+  - npm install
+  - npx webpack -p
+  - composer install
+  - ls -al
+before_deploy:
+  - ls -al
+  - mkdir -p dominant-color-async
+  - ls -al
+  - cp -r *.php *.md assets languages src dominant-color-async
+  - zip -r dominant-color-async.zip dominant-color-async
+deploy:
+  - provider: releases
+    api_key: '$GITHUB_API_KEY'
+    file: "dominant-color-async.zip"
+    skip_cleanup: true
+    on:
+      tags: true
+  - provider: script
+    script: './deploy.sh'
+    skip_cleanup: true
+    # Restrict deployment only for tags
+    on:
+      tags: true
