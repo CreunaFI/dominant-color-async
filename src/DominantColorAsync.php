@@ -140,7 +140,7 @@ class DominantColorAsync
     }
 
     public function check_status() {
-        $in_progress = !$this->process_all->is_queue_empty();
+        $in_progress = !$this->process_all->is_queue_empty() || $this->process_all->is_process_running();
         $total_query = new WP_Query([
             'post_status' => 'inherit',
             'post_type'=> 'attachment',
@@ -166,7 +166,6 @@ class DominantColorAsync
             ],
         ]);
         $processed = $processed_query->post_count;
-        $percentage = round($processed / $total * 100);
         wp_send_json([
             'in_progress' => $in_progress,
             'total' => $total,

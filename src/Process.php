@@ -176,4 +176,13 @@ class Process extends WP_Background_Process
     {
         return parent::is_queue_empty();
     }
+
+    /**
+     * Expose protected method
+     * @return bool
+     */
+    public function is_process_running()
+    {
+        return parent::is_process_running();
+    }
 }
