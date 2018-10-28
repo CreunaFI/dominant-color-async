@@ -16,11 +16,15 @@ const store = new Store({
     total: 0,
     processed_images: 0,
     unprocessed_images: 0,
+    button_loading: false,
   },
   mutations: {
     updateData(state, data) {
       Object.assign(state, data);
     },
+    buttonLoading(state, loading) {
+      state.button_loading = loading;
+    }
   },
   actions: {
     getData({ dispatch, commit }) {
@@ -39,6 +43,20 @@ const store = new Store({
           console.log(error);
         });
     },
+    processAll({ commit }) {
+      commit('buttonLoading', true);
+      axios
+        .post(ajaxurl, qs.stringify({ action: 'dominant_color_process_all' }), {
+          headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        })
+        .then(response => {
+          commit('buttonLoading', false);
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   },
 });
 

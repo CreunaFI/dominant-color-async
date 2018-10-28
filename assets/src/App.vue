@@ -2,7 +2,7 @@
   <div class="wrap">
     <h1 class="wp-heading-inline">{{translations.dominant_color_async}}</h1>
     <div v-if="unprocessedImages !== 0 && !inProgress" class="notice notice-warning">
-      <p>{{unprocessedImagesMessage}} <a href="#">{{translations.process}}</a></p>
+      <p>{{unprocessedImagesMessage}} <a href="#" v-on:click="processAll">{{translations.process}}</a></p>
     </div>
     <div class="dominant-color-async-postbox">
       <h2 class="dominant-color-async-postbox__heading">{{translations.processing_queue}}</h2>
@@ -31,6 +31,7 @@ export default {
     processedImages: 'processed_images',
     unprocessedImages: 'unprocessed_images',
     translations: 'translations',
+    buttonLoading: 'buttonLoading',
     unprocessedImagesMessage(state) {
       return sprintf(
         this.translations.unprocessed_images_notice,
@@ -57,5 +58,10 @@ export default {
   mounted() {
     this.$store.dispatch('getData');
   },
+  methods: {
+    processAll() {
+      this.$store.dispatch('processAll');
+    }
+  }
 };
 </script>
