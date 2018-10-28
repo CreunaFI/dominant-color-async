@@ -20,7 +20,7 @@ deploy:
     on:
       tags: true
   - provider: script
-    script: 'chmod +x ./deploy.sh && ./deploy.sh'
+    script: './deploy.sh'
     skip_cleanup: true
     # Restrict deployment only for tags
     on:
