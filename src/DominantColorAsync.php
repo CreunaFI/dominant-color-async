@@ -132,6 +132,7 @@ class DominantColorAsync
             'processing_queue' => __('Processing queue', 'dominant-color-async'),
             'not_in_progress' => __('Not in progress', 'dominant-color-async'),
             'processing' => __('Processing', 'dominant-color-async'),
+            'processed_images_count' => __('Processed %d out of %d images', 'dominant-color-async'),
         ];
         $translations = htmlspecialchars(json_encode($translations));
 

@@ -16,6 +16,9 @@
         <div class="dominant-color-async-postbox__progress">
           <div class="dominant-color-async-postbox__progress-bar" v-bind:style="{width: `${percentage}%`}" ></div>
         </div>
+        <div class="dominant-color-async-postbox__count">
+          <div>{{countMessage}}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -35,7 +38,14 @@ export default {
     unprocessedImagesMessage(state) {
       return sprintf(
         this.translations.unprocessed_images_notice,
-        this.unprocessedImages
+        this.unprocessedImages,
+      );
+    },
+    countMessage(state) {
+      return sprintf(
+        this.translations.processed_images_count,
+        this.processedImages,
+        this.total,
       );
     },
     statusMessage(state) {
