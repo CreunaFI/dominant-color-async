@@ -3,14 +3,14 @@ const WatchTimePlugin = require('webpack-watch-time-plugin');
 var VueLoaderPlugin = require('vue-loader/lib/plugin');
 const path = require('path');
 
-module.exports = {
+module.exports = (env, argv) => ({
   entry: {
     style: './assets/src/style.scss',
     script: './assets/src/script.js',
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'assets/dist')
+    path: path.resolve(__dirname, 'assets/dist'),
   },
   resolve: {
     extensions: ['*', '.js'],
@@ -21,7 +21,7 @@ module.exports = {
   performance: {
     hints: false,
   },
-  devtool: 'inline-source-map',
+  devtool: argv.mode === 'production' ? 'source-map' : 'inline-source-map',
   mode: 'development',
   module: {
     rules: [
@@ -50,7 +50,21 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
       },
       {
         test: /\.vue$/,
@@ -78,4 +92,4 @@ module.exports = {
     new WatchTimePlugin(),
     new VueLoaderPlugin(),
   ],
-};
+});
