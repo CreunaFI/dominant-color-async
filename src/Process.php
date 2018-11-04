@@ -59,12 +59,12 @@ class Process extends WP_Background_Process
         if ($this->validate_medium_image_size($metadata)) {
             // We have medium image to work with
             $full_path = $base_dir . '/' . dirname($metadata['file']) . '/' . $metadata['sizes']['medium']['file'];
-            $dominant_color = ColorThief::getColor($full_path, 5);
+            $dominant_color = ColorThief::getColor($full_path, 1);
         } else {
             // We need to generate medium image
             $image_path = $base_dir . '/' . $metadata['file'];
             $image = $this->generate_thumbnail($image_path);
-            $dominant_color = ColorThief::getColor($image->getCore(), 5);
+            $dominant_color = ColorThief::getColor($image->getCore(), 1);
         }
 
         update_post_meta($attachment_id, 'dominant_color', $this->rgb_to_hex($dominant_color));
