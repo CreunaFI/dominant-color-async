@@ -116,7 +116,7 @@ class DominantColorAsync
 
     public function plugin_links($links)
     {
-        $settings_link = "<a href=\"options-general.php?page=dominant-color-async\">" . __('Settings', 'dominant-color-async') . '</a>';
+        $settings_link = "<a href=\"upload.php?page=dominant-color-async\">" . __('Settings', 'dominant-color-async') . '</a>';
         array_unshift($links, $settings_link);
         return $links;
     }
