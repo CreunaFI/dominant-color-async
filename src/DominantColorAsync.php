@@ -81,6 +81,7 @@ class DominantColorAsync
     {
         if (!empty($_GET['page']) && $_GET['page'] === 'dominant-color-async') {
             wp_enqueue_script("dominant-color-async-js", plugins_url('assets/dist/script.js', __DIR__), false, md5_file($this->plugin_dir_path . '/assets/dist/script.js'), true);
+            wp_enqueue_style('dominant-color-async-css-dashboard', plugins_url('assets/dist/style-dashboard.css', __DIR__), false, md5_file($this->plugin_dir_path . '/assets/dist/style-dashboard.css'));
         }
         wp_enqueue_style('dominant-color-async-css', plugins_url('assets/dist/style.css', __DIR__), false, md5_file($this->plugin_dir_path . '/assets/dist/style.css'));
     }

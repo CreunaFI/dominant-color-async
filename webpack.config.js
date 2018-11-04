@@ -6,6 +6,7 @@ const path = require('path');
 module.exports = (env, argv) => ({
   entry: {
     style: './assets/src/style.scss',
+    'style-dashboard': './assets/src/style-dashboard.scss',
     script: './assets/src/script.js',
   },
   output: {
