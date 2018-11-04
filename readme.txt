@@ -31,5 +31,8 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 1.0.1 =
+* Update package.json
+
 = 1.0.0 =
 * Initial release
