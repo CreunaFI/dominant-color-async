@@ -1,6 +1,6 @@
 # Dominant color async
 
-Get the dominant color of an image, asynchronously
+Calculate the dominant color for every image in WordPress, asynchronously
 
 ## What does it do?
 
