@@ -34,7 +34,7 @@ class DominantColorAsync
 
         add_action('admin_menu', function () {
             add_submenu_page(
-                null,
+                'upload.php',
                 __('Dominant color async', 'dominant-color-async'),
                 __('Dominant color async', 'dominant-color-async'),
                 'manage_options',
