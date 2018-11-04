@@ -5,7 +5,7 @@ Plugin Name: Dominant color async
 Plugin URI:
 Description:
 Author: Johannes Siipola
-Version: 0.0.1
+Version: 1.0.0
 Author URI:
 Text Domain: dominant-color-async
 Domain Path:
