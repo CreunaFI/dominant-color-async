@@ -92,6 +92,9 @@ class Process extends WP_Background_Process
         if ($this->validate_medium_image_size($metadata)) {
             // We have medium image to work with
             $full_path = $base_dir . '/' . dirname($metadata['file']) . '/' . $metadata['sizes']['medium']['file'];
+            ImageManagerStatic::configure([
+                'driver' => extension_loaded('imagick') ? 'imagick' : 'gd',
+            ]);
             $image = ImageManagerStatic::make($full_path);
         } else {
             // We need to generate medium image
