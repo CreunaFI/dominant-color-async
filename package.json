@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joppuyo/hydra.git"
+    "url": "git+https://github.com/CreunaFI/dominant-color-async.git"
   },
   "author": "Johannes Siipola",
   "license": "GPL-3.0+",
   "bugs": {
-    "url": "https://github.com/joppuyo/dominant-color-async/issues"
+    "url": "https://github.com/CreunaFI/dominant-color-async/issues"
   },
-  "homepage": "https://github.com/dominant-color-async/hydra#readme",
+  "homepage": "https://github.com/CreunaFI/dominant-color-async#readme",
   "devDependencies": {
     "@prettier/plugin-php": "^0.6.0",
     "prettier": "^1.14.2",
