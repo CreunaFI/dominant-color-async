@@ -31,6 +31,10 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 1.0.3 =
+* Fix settings button path
+* Improve dominant color calculation accuracy
+
 = 1.0.2 =
 * Update composer.json
 
