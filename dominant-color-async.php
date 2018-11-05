@@ -10,6 +10,9 @@ Author URI: https://siipo.la
 Text Domain: dominant-color-async
 */
 
-require 'vendor/autoload.php';
+// Check if we are using local Composer
+if (file_exists(__DIR__ . '/vendor')) {
+    require 'vendor/autoload.php';
+}
 
 new \DominantColorAsync\DominantColorAsync(plugin_basename(__FILE__), plugin_dir_path(__FILE__));
