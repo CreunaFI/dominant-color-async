@@ -31,6 +31,9 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 1.0.6 =
+* Add Bedrock support
+
 = 1.0.5 =
 * Fix imagick support
 
