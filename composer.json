@@ -5,7 +5,6 @@
     "license": "GPL-3.0-or-later",
     "require": {
         "a5hleyrich/wp-background-processing": "^1.0",
-        "symfony/var-dumper": "^4.1",
         "ksubileau/color-thief-php": "^1.4",
         "intervention/image": "^2.4",
         "tightenco/collect": "^5.7"
@@ -14,5 +13,8 @@
         "psr-4": {
             "DominantColorAsync\\": "src/"
         }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "*"
     }
 }
