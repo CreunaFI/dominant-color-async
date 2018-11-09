@@ -31,6 +31,9 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 1.0.7 =
+* Move var-dumper to dev dependencies
+
 = 1.0.6 =
 * Add Bedrock support
 
