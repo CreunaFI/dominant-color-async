@@ -31,6 +31,9 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 1.0.8 =
+* Update PHP requirement information
+
 = 1.0.7 =
 * Move var-dumper to dev dependencies
 
