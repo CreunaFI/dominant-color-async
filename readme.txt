@@ -31,6 +31,10 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 1.0.9 =
+* Check attachment exists before processing
+* Install dependencies according to minimum PHP version requirements
+
 = 1.0.8 =
 * Update PHP requirement information
 
