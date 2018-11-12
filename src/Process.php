@@ -39,11 +39,22 @@ class Process extends WP_Background_Process
         $metadata = $data['metadata'];
         $type = $data['type'];
 
+        DominantColorAsync::debug("Processing image $attachment_id");
+
+        if (!get_post($attachment_id)) {
+            DominantColorAsync::debug("Image $attachment_id does not exist, maybe it was deleted? Skipping.");
+            return false;
+        }
+
         if ($type === 'dominant_color') {
+            DominantColorAsync::debug("Calculating dominant color...");
             $this->calculate_dominant_color($attachment_id, $metadata);
+            DominantColorAsync::debug("Dominant color calculated!");
         }
         if ($type === 'transparency') {
+            DominantColorAsync::debug("Calculating transparency...");
             $this->calculate_transparency($attachment_id, $metadata);
+            DominantColorAsync::debug("Transparency calculated!");
         }
 
         return false;
