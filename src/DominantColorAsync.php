@@ -196,18 +196,24 @@ class DominantColorAsync
                 ],
             ],
         ]);
-        foreach ($unprocessed_query->posts as $post) {
-            $this->process_all->push_to_queue([
-                'type' => 'dominant_color',
-                'attachment_id' => $post->ID,
-                'metadata' => wp_get_attachment_metadata($post->ID),
-            ]);
-            $this->process_all->push_to_queue([
-                'type' => 'transparency',
-                'attachment_id' => $post->ID,
-                'metadata' => wp_get_attachment_metadata($post->ID),
-            ]);
+
+        $chunks = collect($unprocessed_query->posts)->chunk(10);
+
+        foreach ($chunks as $posts) {
+            foreach ($posts as $post) {
+                $this->process_all->push_to_queue([
+                    'type' => 'dominant_color',
+                    'attachment_id' => $post->ID,
+                    'metadata' => wp_get_attachment_metadata($post->ID),
+                ]);
+                $this->process_all->push_to_queue([
+                    'type' => 'transparency',
+                    'attachment_id' => $post->ID,
+                    'metadata' => wp_get_attachment_metadata($post->ID),
+                ]);
+            }
+            $this->process_all->save()->dispatch();
         }
-        $this->process_all->save()->dispatch();
+
     }
 }
