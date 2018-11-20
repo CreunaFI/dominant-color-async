@@ -31,6 +31,9 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 1.0.10 =
+* When processing all unprocessed images, chunk batches to avoid timeout on some servers
+
 = 1.0.9 =
 * Check attachment exists before processing
 * Install dependencies according to minimum PHP version requirements
