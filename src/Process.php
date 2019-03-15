@@ -84,12 +84,12 @@ class Process extends WP_Background_Process
             $dominant_color = ColorThief::getColor($image->getCore(), 1);
         }
 
-        update_post_meta($attachment_id, 'dca_dominant_color', $this->rgb_to_hex($dominant_color));
+        update_post_meta($attachment_id, 'dominant_color', $this->rgb_to_hex($dominant_color));
     }
 
     public function calculate_transparency($attachment_id, $metadata) {
         $has_transparency = $this->has_transparency($attachment_id, $metadata);
-        update_post_meta($attachment_id, 'dca_has_transparency', $has_transparency);
+        update_post_meta($attachment_id, 'has_transparency', $has_transparency);
     }
 
     /**
