@@ -1,8 +1,8 @@
 === Dominant color async ===
 Contributors: joppuyo
 Tags: dominant, color, asynchronous
-Requires at least: 4.9.0
-Tested up to: 4.9.8
+Requires at least: 4.9
+Tested up to: 5.1
 Requires PHP: 5.5.9
 License: License: GPLv3 or later
 
