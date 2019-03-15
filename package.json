@@ -1,6 +1,6 @@
 {
   "name": "dominant-color-async",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Get the dominant color of an image",
   "main": "index.js",
   "scripts": {

@@ -31,6 +31,10 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 1.0.11 =
+* Fix: Fix issue where failed image processing can cause an infinite loop
+* Fix: Bump supported WordPress version to 5.1
+
 = 1.0.10 =
 * When processing all unprocessed images, chunk batches to avoid timeout on some servers
 
