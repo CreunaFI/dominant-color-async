@@ -186,6 +186,7 @@ class DominantColorAsync
             'post_mime_type' => 'image/jpeg, image/gif, image/png',
             'meta_query' => 
             [
+                'relation' => 'OR',
                 [
                     'key' => 'dominant_color',
                     'compare' => 'NOT EXISTS',
