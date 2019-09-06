@@ -46,6 +46,20 @@ class Process extends WP_Background_Process
             return false;
         }
 
+        if (!in_array(get_post_mime_type($attachment_id), ['image/png', 'image/gif'])) {
+            return false;
+        }
+
+        $base_dir = wp_upload_dir()['basedir'];
+
+        $database_hash = get_post_meta($attachment_id, '_dca_hash', true);
+        $file_path = $base_dir . '/' . $metadata['file'];
+
+        if ($database_hash && $database_hash === md5_file($file_path)) {
+            DominantColorAsync::debug("Image has not been changed");
+            return false;
+        }
+
         try {
             if ($type === 'dominant_color') {
                 DominantColorAsync::debug("Calculating dominant color...");
@@ -55,6 +69,7 @@ class Process extends WP_Background_Process
             if ($type === 'transparency') {
                 DominantColorAsync::debug("Calculating transparency...");
                 $this->calculate_transparency($attachment_id, $metadata);
+                update_post_meta($attachment_id, '_dca_hash', md5_file($file_path));
                 DominantColorAsync::debug("Transparency calculated!");
             }
         } catch (\Exception $e) {
@@ -99,9 +114,6 @@ class Process extends WP_Background_Process
      * @return bool
      */
     public function has_transparency($attachment_id, $metadata) {
-        if (!in_array(get_post_mime_type($attachment_id), ['image/png', 'image/gif'])) {
-            return false;
-        }
 
         $base_dir = wp_upload_dir()['basedir'];
         $image = null;
