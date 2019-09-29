@@ -31,6 +31,9 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 1.1.1 =
+* Fix: Fix build
+
 = 1.1.0 =
 * Feature: Save image hash in the database and skip processing the image if it has not changed
 * Fix: Fix issue where image with only one field processed does not show up as unprocessed
