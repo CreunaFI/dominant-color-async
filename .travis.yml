@@ -11,7 +11,7 @@ before_deploy:
   - ls -al
   - mkdir -p dominant-color-async
   - ls -al
-  - cp -r *.php *.md assets languages src vendor dominant-color-async
+  - cp -r *.php *.md assets languages src vendor composer.json composer.lock dominant-color-async
   - zip -r dominant-color-async.zip dominant-color-async
 deploy:
   - provider: releases
