@@ -146,8 +146,9 @@ class DominantColorAsync
         $in_progress = !$this->process_all->is_queue_empty() || $this->process_all->is_process_running();
         $total_query = new WP_Query([
             'post_status' => 'inherit',
-            'post_type'=> 'attachment',
+            'post_type' => 'attachment',
             'posts_per_page' => -1,
+            'fields' => 'ids',
             'post_mime_type' => 'image/jpeg, image/gif, image/png'
         ]);
         $total = $total_query->post_count;
@@ -156,6 +157,7 @@ class DominantColorAsync
             'post_status' => 'inherit',
             'post_type' => 'attachment',
             'posts_per_page' => -1,
+            'fields' => 'ids',
             'post_mime_type' => 'image/jpeg, image/gif, image/png',
             'meta_query' => [
                 [
