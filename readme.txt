@@ -31,6 +31,9 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 1.1.2 =
+* Fix: Fix build
+
 = 1.1.1 =
 * Fix: Fix build
 
