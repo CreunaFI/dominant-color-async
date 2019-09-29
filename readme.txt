@@ -31,6 +31,9 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 1.1.3 =
+* Fix: Make query more efficient
+
 = 1.1.2 =
 * Fix: Fix build
 

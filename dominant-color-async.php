@@ -5,7 +5,7 @@ Plugin Name: Dominant color async
 Plugin URI: https://github.com/CreunaFI/dominant-color-async
 Description: Calculate the dominant color for every image in WordPress, asynchronously
 Author: Johannes Siipola
-Version: 1.1.2
+Version: 1.1.3
 Author URI: https://siipo.la
 Text Domain: dominant-color-async
 */
