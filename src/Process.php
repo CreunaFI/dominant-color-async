@@ -46,7 +46,7 @@ class Process extends WP_Background_Process
             return false;
         }
 
-        if (!in_array(get_post_mime_type($attachment_id), ['image/png', 'image/gif'])) {
+        if (!in_array(get_post_mime_type($attachment_id), ['image/png', 'image/gif', 'image/jpeg'])) {
             return false;
         }
 
@@ -114,6 +114,10 @@ class Process extends WP_Background_Process
      * @return bool
      */
     public function has_transparency($attachment_id, $metadata) {
+
+        if (!in_array(get_post_mime_type($attachment_id), ['image/png', 'image/gif'])) {
+            return false;
+        }
 
         $base_dir = wp_upload_dir()['basedir'];
         $image = null;
