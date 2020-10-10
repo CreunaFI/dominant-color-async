@@ -18,7 +18,8 @@ class DominantColorAsync
         $this->plugin_dir_path = $plugin_dir_path;
 
         add_action('plugins_loaded', [$this, 'init']);
-        add_filter('dca_process_dominant_color', [$this, 'task'], 10, 2);
+        add_filter('dca_process_dominant_color', [$this, 'process_dominant_color'], 10, 2);
+        add_filter('dca_process_transparency', [$this, 'process_transparency'], 10, 2);
         add_action('admin_enqueue_scripts', [$this, 'load_admin_styles']);
         add_filter(
             'wp_generate_attachment_metadata',
@@ -92,20 +93,9 @@ class DominantColorAsync
             return $metadata;
         }
 
-        as_enqueue_async_action('dca_process_dominant_color', ['attachment_id' => $attachment_id,'something' => 'something_else']);
+        as_enqueue_async_action('dca_process_dominant_color', [$attachment_id]);
+        as_enqueue_async_action('dca_process_transparency', [$attachment_id]);
 
-        //$this->process_all->push_to_queue([
-        //    'type' => 'dominant_color',
-        //    'attachment_id' => $attachment_id,
-        //    'metadata' => $metadata,
-        //]);
-        //$this->process_all->push_to_queue([
-        //    'type' => 'transparency',
-        //    'attachment_id' => $attachment_id,
-        //    'metadata' => $metadata,
-        //]);
-
-        //$this->process_all->save()->dispatch();
         return $metadata;
     }
 
@@ -116,15 +106,28 @@ class DominantColorAsync
         }
     }
 
-    public function task($attachment_id) {
+    public function process_dominant_color($attachment_id) {
+        $this->process($attachment_id, 'dominant_color');
+    }
+
+    public function process_transparency($attachment_id) {
+        $this->process($attachment_id, 'transparency');
+    }
+
+    /**
+     * @param int $attachment_id
+     * @param string $type
+     * @return void
+     */
+    public function process($attachment_id, $type) {
 
         if (!get_post($attachment_id)) {
             DominantColorAsync::debug("Image $attachment_id does not exist, maybe it was deleted? Skipping.");
-            return false;
+            return;
         }
 
         if (!in_array(get_post_mime_type($attachment_id), ['image/png', 'image/gif', 'image/jpeg'])) {
-            return false;
+            return;
         }
 
         $metadata = wp_get_attachment_metadata($attachment_id);
@@ -134,14 +137,69 @@ class DominantColorAsync
         $database_hash = get_post_meta($attachment_id, '_dca_hash', true);
         $file_path = $base_dir . '/' . $metadata['file'];
 
-        if ($database_hash && $database_hash === md5_file($file_path)) {
+        if (
+            $database_hash &&
+            $database_hash === md5_file($file_path)
+        ) {
             DominantColorAsync::debug("Image has not been changed");
+            return;
+        }
+
+        if ($type === 'dominant_color') {
+            DominantColorAsync::debug("Calculating dominant color...");
+            $this->calculate_dominant_color($attachment_id, $metadata);
+            DominantColorAsync::debug("Dominant color calculated!");
+        }
+
+        if ($type === 'transparency') {
+            DominantColorAsync::debug("Calculating transparency...");
+            $this->calculate_transparency($attachment_id, $metadata);
+            update_post_meta($attachment_id, '_dca_hash', md5_file($file_path));
+            DominantColorAsync::debug("Transparency calculated!");
+        }
+    }
+
+    public function calculate_transparency($attachment_id, $metadata) {
+        $has_transparency = $this->has_transparency($attachment_id, $metadata);
+        update_post_meta($attachment_id, 'has_transparency', $has_transparency);
+    }
+
+    /**
+     * Check whether image has transparency or not
+     * @param int $attachment_id
+     * @param array $metadata
+     * @return bool
+     */
+    public function has_transparency($attachment_id, $metadata) {
+
+        self::debug(get_post_mime_type($attachment_id));
+
+        if (!in_array(get_post_mime_type($attachment_id), ['image/png', 'image/gif'])) {
             return false;
         }
 
-        DominantColorAsync::debug("Calculating dominant color...");
-        $this->calculate_dominant_color($attachment_id, $metadata);
-        DominantColorAsync::debug("Dominant color calculated!");
+        $base_dir = wp_upload_dir()['basedir'];
+        $image = null;
+
+        if ($this->validate_medium_image_size($metadata)) {
+            // We have medium image to work with
+            $full_path = $base_dir . '/' . dirname($metadata['file']) . '/' . $metadata['sizes']['medium']['file'];
+            $image = ImageManagerStatic::make($full_path);
+        } else {
+            // We need to generate medium image
+            $image_path = $base_dir . '/' . $metadata['file'];
+            $image = $this->generate_thumbnail($image_path);
+        }
+
+        // Go through all pixels and if we find a transparent one, return true
+        for ($y = 0; $y < $image->height(); $y++) {
+            for ($x = 0; $x < $image->width(); $x++) {
+                if ($image->pickColor($x, $y)[3] != 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
