@@ -4,24 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "65ab929c5f84ba14a3cf22e81fce1d8a",
+    "content-hash": "04edd90680f3d2a0118e4f00a5b49b40",
     "packages": [
         {
             "name": "a5hleyrich/wp-background-processing",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/A5hleyRich/wp-background-processing.git",
-                "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1"
+                "url": "https://github.com/deliciousbrains/wp-background-processing.git",
+                "reference": "2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/A5hleyRich/wp-background-processing/zipball/1f070aab5058dbaf45d5435a343033ddd8a641b1",
-                "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1",
+                "url": "https://api.github.com/repos/deliciousbrains/wp-background-processing/zipball/2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800",
+                "reference": "2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2"
+            },
+            "suggest": {
+                "coenjacobs/mozart": "Easily wrap this library with your own prefix, to prevent collisions when multiple plugins use this library"
             },
             "type": "library",
             "autoload": {
@@ -31,45 +34,50 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0-only"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
-                    "name": "Ashley Rich",
-                    "email": "hello@ashleyrich.com"
+                    "name": "Delicious Brains",
+                    "email": "nom@deliciousbrains.com"
                 }
             ],
             "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks.",
-            "time": "2018-02-12T09:24:05+00:00"
+            "time": "2020-07-31T07:00:11+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.4.2",
+            "version": "1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c"
+                "reference": "53330f47520498c0ae1f61f7e2c90f55690c06a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
-                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/53330f47520498c0ae1f61f7e2c90f55690c06a3",
+                "reference": "53330f47520498c0ae1f61f7e2c90f55690c06a3",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0",
-                "psr/http-message": "~1.0"
+                "psr/http-message": "~1.0",
+                "ralouphie/getallheaders": "^2.0.5 || ^3.0.0"
             },
             "provide": {
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "ext-zlib": "*",
+                "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20 || ^8.5.8 || ^9.3.10"
+            },
+            "suggest": {
+                "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4-dev"
+                    "dev-master": "1.7-dev"
                 }
             },
             "autoload": {
@@ -99,26 +107,27 @@
             "keywords": [
                 "http",
                 "message",
+                "psr-7",
                 "request",
                 "response",
                 "stream",
                 "uri",
                 "url"
             ],
-            "time": "2017-03-20T17:10:46+00:00"
+            "time": "2020-09-30T07:37:11+00:00"
         },
         {
             "name": "intervention/image",
-            "version": "2.4.2",
+            "version": "2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "e82d274f786e3d4b866a59b173f42e716f0783eb"
+                "reference": "abbf18d5ab8367f96b3205ca3c89fb2fa598c69e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/e82d274f786e3d4b866a59b173f42e716f0783eb",
-                "reference": "e82d274f786e3d4b866a59b173f42e716f0783eb",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/abbf18d5ab8367f96b3205ca3c89fb2fa598c69e",
+                "reference": "abbf18d5ab8367f96b3205ca3c89fb2fa598c69e",
                 "shasum": ""
             },
             "require": {
@@ -175,7 +184,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2018-05-29T14:19:03+00:00"
+            "time": "2019-11-02T09:15:47+00:00"
         },
         {
             "name": "ksubileau/color-thief-php",
@@ -232,16 +241,16 @@
         },
         {
             "name": "psr/http-message",
-            "version": "1.0.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+                "reference": "efd67d1dc14a7ef4fc4e518e7dee91c271d524e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/efd67d1dc14a7ef4fc4e518e7dee91c271d524e4",
+                "reference": "efd67d1dc14a7ef4fc4e518e7dee91c271d524e4",
                 "shasum": ""
             },
             "require": {
@@ -278,37 +287,34 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2019-08-29T13:16:46+00:00"
         },
         {
-            "name": "tightenco/collect",
-            "version": "v5.3.20",
+            "name": "ralouphie/getallheaders",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/tightenco/collect.git",
-                "reference": "07547aa6191f6d05b459ecea7c62526e18f33851"
+                "url": "https://github.com/ralouphie/getallheaders.git",
+                "reference": "120b605dfeb996808c31b6477290a714d356e822"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tightenco/collect/zipball/07547aa6191f6d05b459ecea7c62526e18f33851",
-                "reference": "07547aa6191f6d05b459ecea7c62526e18f33851",
+                "url": "https://api.github.com/repos/ralouphie/getallheaders/zipball/120b605dfeb996808c31b6477290a714d356e822",
+                "reference": "120b605dfeb996808c31b6477290a714d356e822",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.6"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.4",
-                "phpunit/phpunit": "~4.1"
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^5 || ^6.5"
             },
             "type": "library",
             "autoload": {
                 "files": [
-                    "src/Illuminate/Support/helpers.php"
-                ],
-                "psr-4": {
-                    "Illuminate\\": "src/Illuminate"
-                }
+                    "src/getallheaders.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -316,31 +322,25 @@
             ],
             "authors": [
                 {
-                    "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "name": "Ralph Khattar",
+                    "email": "ralph.khattar@gmail.com"
                 }
             ],
-            "description": "Collect - Illuminate Collections as a separate package.",
-            "keywords": [
-                "collection",
-                "laravel"
-            ],
-            "time": "2016-10-25T18:10:45+00:00"
-        }
-    ],
-    "packages-dev": [
+            "description": "A polyfill for getallheaders.",
+            "time": "2019-03-08T08:55:37+00:00"
+        },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.10.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "c79c051f5b3a46be09205c73b80b346e4153e494"
+                "reference": "48928d471ede0548b399f54b0286fe0d0ed79267"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/c79c051f5b3a46be09205c73b80b346e4153e494",
-                "reference": "c79c051f5b3a46be09205c73b80b346e4153e494",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/48928d471ede0548b399f54b0286fe0d0ed79267",
+                "reference": "48928d471ede0548b399f54b0286fe0d0ed79267",
                 "shasum": ""
             },
             "require": {
@@ -352,7 +352,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.9-dev"
+                    "dev-master": "1.18-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -386,44 +390,214 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-09-21T13:07:52+00:00"
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-09-14T11:01:58+00:00"
         },
         {
-            "name": "symfony/var-dumper",
-            "version": "v3.4.18",
+            "name": "symfony/polyfill-php72",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "ff8ac19e97e5c7c3979236b584719a1190f84181"
+                "url": "https://github.com/symfony/polyfill-php72.git",
+                "reference": "dc6ef203f50ab65e7de9663826d2fd2d3c1e90e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/ff8ac19e97e5c7c3979236b584719a1190f84181",
-                "reference": "ff8ac19e97e5c7c3979236b584719a1190f84181",
+                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/dc6ef203f50ab65e7de9663826d2fd2d3c1e90e2",
+                "reference": "dc6ef203f50ab65e7de9663826d2fd2d3c1e90e2",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8",
-                "symfony/polyfill-mbstring": "~1.0"
-            },
-            "conflict": {
-                "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0"
-            },
-            "require-dev": {
-                "ext-iconv": "*",
-                "twig/twig": "~1.34|~2.4"
-            },
-            "suggest": {
-                "ext-iconv": "To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).",
-                "ext-intl": "To show region name in time zone dump",
-                "ext-symfony_debug": ""
+                "php": ">=5.3.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.4-dev"
+                    "dev-master": "1.18-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php72\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 7.2+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-10-01T14:10:30+00:00"
+        },
+        {
+            "name": "symfony/polyfill-php80",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php80.git",
+                "reference": "c3616e7b303d0bd8c261de7921c72bf818b52b91"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/c3616e7b303d0bd8c261de7921c72bf818b52b91",
+                "reference": "c3616e7b303d0bd8c261de7921c72bf818b52b91",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.18-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php80\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ],
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ion Bazan",
+                    "email": "ion.bazan@gmail.com"
+                },
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 8.0+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-09-14T10:02:33+00:00"
+        },
+        {
+            "name": "symfony/var-dumper",
+            "version": "4.4.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/var-dumper.git",
+                "reference": "7748ea6a970f26638fbd790d697c4996764bf3da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/7748ea6a970f26638fbd790d697c4996764bf3da",
+                "reference": "7748ea6a970f26638fbd790d697c4996764bf3da",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3",
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/polyfill-php72": "~1.5",
+                "symfony/polyfill-php80": "^1.15"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0",
+                "symfony/console": "<3.4"
+            },
+            "require-dev": {
+                "ext-iconv": "*",
+                "symfony/console": "^3.4|^4.0|^5.0",
+                "symfony/process": "^4.4|^5.0",
+                "twig/twig": "^1.34|^2.4|^3.0"
+            },
+            "suggest": {
+                "ext-iconv": "To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).",
+                "ext-intl": "To show region name in time zone dump",
+                "symfony/console": "To use the ServerDumpCommand and/or the bin/var-dump-server script"
+            },
+            "bin": [
+                "Resources/bin/var-dump-server"
+            ],
+            "type": "library",
             "autoload": {
                 "files": [
                     "Resources/functions/dump.php"
@@ -455,19 +629,119 @@
                 "debug",
                 "dump"
             ],
-            "time": "2018-10-02T16:33:53+00:00"
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-10-06T15:45:41+00:00"
+        },
+        {
+            "name": "tightenco/collect",
+            "version": "v5.8.38",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tighten/collect.git",
+                "reference": "c93a7039e6207ad533a09109838fe80933fcc72c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tighten/collect/zipball/c93a7039e6207ad533a09109838fe80933fcc72c",
+                "reference": "c93a7039e6207ad533a09109838fe80933fcc72c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/var-dumper": ">=3.4 <5"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "nesbot/carbon": "^1.26.3",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Collect/Support/helpers.php",
+                    "src/Collect/Support/alias.php"
+                ],
+                "psr-4": {
+                    "Tightenco\\Collect\\": "src/Collect"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "description": "Collect - Illuminate Collections as a separate package.",
+            "keywords": [
+                "collection",
+                "laravel"
+            ],
+            "time": "2019-09-17T18:57:01+00:00"
+        },
+        {
+            "name": "woocommerce/action-scheduler",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/woocommerce/action-scheduler.git",
+                "reference": "c899c34a06a987c5143218672c6c9e544c73fed4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/c899c34a06a987c5143218672c6c9e544c73fed4",
+                "reference": "c899c34a06a987c5143218672c6c9e544c73fed4",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.6",
+                "woocommerce/woocommerce-sniffs": "0.0.8",
+                "wp-cli/wp-cli": "~1.5.1"
+            },
+            "type": "wordpress-plugin",
+            "extra": {
+                "scripts-description": {
+                    "test": "Run unit tests",
+                    "phpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
+                    "phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "description": "Action Scheduler for WordPress and WooCommerce",
+            "homepage": "https://actionscheduler.org/",
+            "time": "2020-09-16T16:31:30+00:00"
         }
     ],
+    "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "woocommerce/action-scheduler": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.5.9"
     },
     "platform-dev": [],
-    "platform-overrides": {
-        "php": "5.5.9"
-    }
+    "plugin-api-version": "1.1.0"
 }

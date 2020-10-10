@@ -10,9 +10,11 @@ Author URI: https://siipo.la
 Text Domain: dominant-color-async
 */
 
-// Check if we are using local Composer
-if (file_exists(__DIR__ . '/vendor')) {
-    require 'vendor/autoload.php';
-}
+require __DIR__ . '/vendor/autoload.php';
+//require __DIR__ . '/vendor/ksubileau/color-thief-php/lib/ColorThief/ColorThief.php';
+require __DIR__ . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
 
-new \DominantColorAsync\DominantColorAsync(plugin_basename(__FILE__), plugin_dir_path(__FILE__));
+$dominant_color_async = new \DominantColorAsync\DominantColorAsync(
+    plugin_basename(__FILE__),
+    plugin_dir_path(__FILE__)
+);

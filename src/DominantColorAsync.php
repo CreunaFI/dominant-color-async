@@ -2,6 +2,8 @@
 
 namespace DominantColorAsync;
 
+use ColorThief\ColorThief;
+use Intervention\Image\ImageManagerStatic;
 use WP_Query;
 
 class DominantColorAsync
@@ -15,11 +17,8 @@ class DominantColorAsync
         $this->plugin_basename = $plugin_basename;
         $this->plugin_dir_path = $plugin_dir_path;
 
-        add_action('init', function () {
-            load_plugin_textdomain('dominant-color-async', null, basename($this->plugin_dir_path) . '/languages');
-        });
-
         add_action('plugins_loaded', [$this, 'init']);
+        add_filter('dca_process_dominant_color', [$this, 'task'], 10, 2);
         add_action('admin_enqueue_scripts', [$this, 'load_admin_styles']);
         add_filter(
             'wp_generate_attachment_metadata',
@@ -92,18 +91,21 @@ class DominantColorAsync
             DominantColorAsync::debug('Attachment is not an image, skipping dominant color processing');
             return $metadata;
         }
-        $this->process_all->push_to_queue([
-            'type' => 'dominant_color',
-            'attachment_id' => $attachment_id,
-            'metadata' => $metadata,
-        ]);
-        $this->process_all->push_to_queue([
-            'type' => 'transparency',
-            'attachment_id' => $attachment_id,
-            'metadata' => $metadata,
-        ]);
 
-        $this->process_all->save()->dispatch();
+        as_enqueue_async_action('dca_process_dominant_color', ['attachment_id' => $attachment_id,'something' => 'something_else']);
+
+        //$this->process_all->push_to_queue([
+        //    'type' => 'dominant_color',
+        //    'attachment_id' => $attachment_id,
+        //    'metadata' => $metadata,
+        //]);
+        //$this->process_all->push_to_queue([
+        //    'type' => 'transparency',
+        //    'attachment_id' => $attachment_id,
+        //    'metadata' => $metadata,
+        //]);
+
+        //$this->process_all->save()->dispatch();
         return $metadata;
     }
 
@@ -112,6 +114,100 @@ class DominantColorAsync
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
             error_log(print_r($message, true));
         }
+    }
+
+    public function task($attachment_id) {
+
+        if (!get_post($attachment_id)) {
+            DominantColorAsync::debug("Image $attachment_id does not exist, maybe it was deleted? Skipping.");
+            return false;
+        }
+
+        if (!in_array(get_post_mime_type($attachment_id), ['image/png', 'image/gif', 'image/jpeg'])) {
+            return false;
+        }
+
+        $metadata = wp_get_attachment_metadata($attachment_id);
+
+        $base_dir = wp_upload_dir()['basedir'];
+
+        $database_hash = get_post_meta($attachment_id, '_dca_hash', true);
+        $file_path = $base_dir . '/' . $metadata['file'];
+
+        if ($database_hash && $database_hash === md5_file($file_path)) {
+            DominantColorAsync::debug("Image has not been changed");
+            return false;
+        }
+
+        DominantColorAsync::debug("Calculating dominant color...");
+        $this->calculate_dominant_color($attachment_id, $metadata);
+        DominantColorAsync::debug("Dominant color calculated!");
+    }
+
+    /**
+     * Calculate dominant color and save it to attachment post meta
+     * @param int $attachment_id
+     * @param array $metadata
+     */
+    public function calculate_dominant_color($attachment_id, $metadata) {
+        $base_dir = wp_upload_dir()['basedir'];
+
+        $dominant_color = null;
+
+        if ($this->validate_medium_image_size($metadata)) {
+            // We have medium image to work with
+            $full_path = $base_dir . '/' . dirname($metadata['file']) . '/' . $metadata['sizes']['medium']['file'];
+            $dominant_color = ColorThief::getColor($full_path, 1);
+        } else {
+            // We need to generate medium image
+            $image_path = $base_dir . '/' . $metadata['file'];
+            $image = $this->generate_thumbnail($image_path);
+            $dominant_color = ColorThief::getColor($image->getCore(), 1);
+        }
+
+        update_post_meta($attachment_id, 'dominant_color', $this->rgb_to_hex($dominant_color));
+    }
+
+    /**
+     * Generate 300x300 thumbnail for image
+     * @param string $image_path
+     * @return \Intervention\Image\Image
+     */
+    public function generate_thumbnail($image_path) {
+        $image = ImageManagerStatic::make($image_path);
+        if ($image->width() > $image->height()) {
+            $image->widen(300, function ($constraint) {
+                $constraint->upsize();
+            });
+        } else {
+            $image->heighten(300, function ($constraint) {
+                $constraint->upsize();
+            });
+        }
+        return $image;
+    }
+
+    /**
+     * Make sure that medium image exists in WP, its size is 300x300 px and it exists in metadata
+     * @param array $metadata
+     * @return bool
+     */
+    public function validate_medium_image_size($metadata)
+    {
+        $sizes = get_intermediate_image_sizes();
+        // Medium size exists
+        if (!collect($sizes)->contains('medium')) {
+            return false;
+        }
+        $width = (int)get_option("medium_size_w");
+        $height = (int)get_option('medium_size_h');
+        $crop = (bool)get_option('medium_crop');
+
+        // Medium size equals 300x300 cropped and metadata contains medium
+        if ($width === 300 && $height === 300 && $crop === false && $metadata['sizes'] && $metadata['sizes']['medium']) {
+            return true;
+        }
+        return false;
     }
 
     public function plugin_links($links)
@@ -218,5 +314,10 @@ class DominantColorAsync
             $this->process_all->save()->dispatch();
         }
 
+    }
+
+    public function rgb_to_hex($array)
+    {
+        return sprintf("#%02x%02x%02x", $array[0], $array[1], $array[2]);
     }
 }
