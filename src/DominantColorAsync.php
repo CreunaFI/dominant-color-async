@@ -47,6 +47,9 @@ class DominantColorAsync
 
     public function media_fields($form_fields, $post)
     {
+        if (!in_array(get_post_mime_type($post), ['image/jpeg', 'image/png', 'image/gif'])) {
+            return $form_fields;
+        }
 
         $dominant_color = get_post_meta($post->ID, 'dominant_color', true) ?: null;
 
