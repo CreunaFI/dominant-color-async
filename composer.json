@@ -2,7 +2,7 @@
     "name": "joppuyo/dominant-color-async",
     "type": "wordpress-plugin",
     "description": "Calculate the dominant color for every image in WordPress, asynchronously",
-    "license": "GPL-3.0-or-later",
+    "license": "GPL-2.0-or-later",
     "config": {
         "preferred-install": "dist",
         "platform": {
