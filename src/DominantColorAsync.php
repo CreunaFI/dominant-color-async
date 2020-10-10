@@ -56,12 +56,14 @@ class DominantColorAsync
         $html = null;
 
         if ($dominant_color) {
-            $html = '<div class="dominant-color-async">' .
-                        '<div class="dominant-color-async-circle" style="background-color: ' . $dominant_color . '"></div>' .
-                    '</div>';
+            $html =
+                '<div class="dominant-color-async">' .
+                '    <div class="dominant-color-async-circle" style="background-color: ' . $dominant_color . '"></div>' .
+                '</div>';
         } else {
-            $html = '<div class="dominant-color-async">' .
-                '<a class="button button-small" href="' . admin_url('admin.php?page=dominant-color-async') .'">' . __('Calculate Missing Color', 'dominant-color-async') . '</a>' .
+            $html =
+                '<div class="dominant-color-async">' .
+                '    <a class="button button-small" href="' . admin_url('admin.php?page=dominant-color-async') . '">' . __('Calculate Missing Color', 'dominant-color-async') . '</a>' .
                 '</div>';
         }
 
@@ -102,11 +104,13 @@ class DominantColorAsync
         }
     }
 
-    public function process_dominant_color($attachment_id) {
+    public function process_dominant_color($attachment_id)
+    {
         $this->process($attachment_id, 'dominant_color');
     }
 
-    public function process_transparency($attachment_id) {
+    public function process_transparency($attachment_id)
+    {
         $this->process($attachment_id, 'transparency');
     }
 
@@ -115,7 +119,8 @@ class DominantColorAsync
      * @param string $type
      * @return void
      */
-    public function process($attachment_id, $type) {
+    public function process($attachment_id, $type)
+    {
 
         if (!get_post($attachment_id)) {
             DominantColorAsync::debug("Image $attachment_id does not exist, maybe it was deleted? Skipping.");
@@ -155,7 +160,8 @@ class DominantColorAsync
         }
     }
 
-    public function calculate_transparency($attachment_id, $metadata) {
+    public function calculate_transparency($attachment_id, $metadata)
+    {
         $has_transparency = $this->has_transparency($attachment_id, $metadata);
         update_post_meta($attachment_id, 'has_transparency', $has_transparency);
     }
@@ -166,7 +172,8 @@ class DominantColorAsync
      * @param array $metadata
      * @return bool
      */
-    public function has_transparency($attachment_id, $metadata) {
+    public function has_transparency($attachment_id, $metadata)
+    {
 
         if (!in_array(get_post_mime_type($attachment_id), ['image/png', 'image/gif'])) {
             return false;
@@ -201,7 +208,8 @@ class DominantColorAsync
      * @param int $attachment_id
      * @param array $metadata
      */
-    public function calculate_dominant_color($attachment_id, $metadata) {
+    public function calculate_dominant_color($attachment_id, $metadata)
+    {
         $base_dir = wp_upload_dir()['basedir'];
 
         $dominant_color = null;
@@ -225,7 +233,8 @@ class DominantColorAsync
      * @param string $image_path
      * @return \Intervention\Image\Image
      */
-    public function generate_thumbnail($image_path) {
+    public function generate_thumbnail($image_path)
+    {
         $image = ImageManagerStatic::make($image_path);
         if ($image->width() > $image->height()) {
             $image->widen(300, function ($constraint) {
@@ -297,9 +306,11 @@ class DominantColorAsync
         echo '      </div>';
     }
 
-    public function check_status() {
+    public function check_status()
+    {
         return false;
     }
+
     public function process_all()
     {
         return false;
