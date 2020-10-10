@@ -11,7 +11,6 @@ Text Domain: dominant-color-async
 */
 
 require __DIR__ . '/vendor/autoload.php';
-//require __DIR__ . '/vendor/ksubileau/color-thief-php/lib/ColorThief/ColorThief.php';
 require __DIR__ . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
 
 $dominant_color_async = new \DominantColorAsync\DominantColorAsync(

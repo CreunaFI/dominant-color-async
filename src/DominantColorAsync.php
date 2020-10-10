@@ -8,7 +8,6 @@ use WP_Query;
 
 class DominantColorAsync
 {
-    protected $process_all;
     private $plugin_basename;
     private $plugin_dir_path;
 
@@ -17,7 +16,6 @@ class DominantColorAsync
         $this->plugin_basename = $plugin_basename;
         $this->plugin_dir_path = $plugin_dir_path;
 
-        add_action('plugins_loaded', [$this, 'init']);
         add_filter('dca_process_dominant_color', [$this, 'process_dominant_color'], 10, 2);
         add_filter('dca_process_transparency', [$this, 'process_transparency'], 10, 2);
         add_action('admin_enqueue_scripts', [$this, 'load_admin_styles']);
@@ -45,11 +43,6 @@ class DominantColorAsync
 
         add_action('wp_ajax_dominant_color_status', [$this, 'check_status']);
         add_action('wp_ajax_dominant_color_process_all', [$this, 'process_all']);
-    }
-
-    public function init()
-    {
-        $this->process_all = new Process();
     }
 
     public function media_fields($form_fields, $post)
@@ -171,8 +164,6 @@ class DominantColorAsync
      * @return bool
      */
     public function has_transparency($attachment_id, $metadata) {
-
-        self::debug(get_post_mime_type($attachment_id));
 
         if (!in_array(get_post_mime_type($attachment_id), ['image/png', 'image/gif'])) {
             return false;
@@ -297,81 +288,11 @@ class DominantColorAsync
     }
 
     public function check_status() {
-        $in_progress = !$this->process_all->is_queue_empty() || $this->process_all->is_process_running();
-        $total_query = new WP_Query([
-            'post_status' => 'inherit',
-            'post_type' => 'attachment',
-            'posts_per_page' => -1,
-            'fields' => 'ids',
-            'post_mime_type' => 'image/jpeg, image/gif, image/png'
-        ]);
-        $total = $total_query->post_count;
-
-        $processed_query = new WP_Query([
-            'post_status' => 'inherit',
-            'post_type' => 'attachment',
-            'posts_per_page' => -1,
-            'fields' => 'ids',
-            'post_mime_type' => 'image/jpeg, image/gif, image/png',
-            'meta_query' => [
-                [
-                    'key' => 'dominant_color',
-                    'compare' => 'EXISTS',
-                ],
-                [
-                    'key' => 'has_transparency',
-                    'compare' => 'EXISTS',
-                ],
-            ],
-        ]);
-        $processed = $processed_query->post_count;
-        wp_send_json([
-            'in_progress' => $in_progress,
-            'total' => $total,
-            'processed_images' => $processed,
-            'unprocessed_images' => $total - $processed,
-        ]);
-        wp_die();
+        return false;
     }
     public function process_all()
     {
-        $unprocessed_query = new WP_Query([
-            'post_status' => 'inherit',
-            'post_type' => 'attachment',
-            'posts_per_page' => -1,
-            'post_mime_type' => 'image/jpeg, image/gif, image/png',
-            'meta_query' => 
-            [
-                'relation' => 'OR',
-                [
-                    'key' => 'dominant_color',
-                    'compare' => 'NOT EXISTS',
-                ],
-                [
-                    'key' => 'has_transparency',
-                    'compare' => 'NOT EXISTS',
-                ],
-            ],
-        ]);
-
-        $chunks = collect($unprocessed_query->posts)->chunk(10);
-
-        foreach ($chunks as $posts) {
-            foreach ($posts as $post) {
-                $this->process_all->push_to_queue([
-                    'type' => 'dominant_color',
-                    'attachment_id' => $post->ID,
-                    'metadata' => wp_get_attachment_metadata($post->ID),
-                ]);
-                $this->process_all->push_to_queue([
-                    'type' => 'transparency',
-                    'attachment_id' => $post->ID,
-                    'metadata' => wp_get_attachment_metadata($post->ID),
-                ]);
-            }
-            $this->process_all->save()->dispatch();
-        }
-
+        return false;
     }
 
     public function rgb_to_hex($array)
