@@ -244,8 +244,9 @@ class DominantColorAsync
     public function validate_medium_image_size($metadata)
     {
         $sizes = get_intermediate_image_sizes();
+
         // Medium size exists
-        if (!collect($sizes)->contains('medium')) {
+        if (!in_array('medium', $sizes)) {
             return false;
         }
         $width = (int)get_option("medium_size_w");
@@ -253,7 +254,13 @@ class DominantColorAsync
         $crop = (bool)get_option('medium_crop');
 
         // Medium size equals 300x300 cropped and metadata contains medium
-        if ($width === 300 && $height === 300 && $crop === false && $metadata['sizes'] && $metadata['sizes']['medium']) {
+        if (
+            $width === 300 &&
+            $height === 300 &&
+            $crop === false &&
+            !empty($metadata['sizes']) &&
+            !empty($metadata['sizes']['medium'])
+        ) {
             return true;
         }
         return false;

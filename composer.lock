@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a171531585b84a44be11bb7fb9f678b5",
+    "content-hash": "9f4dc84508a6c961823b8aa11c046a90",
     "packages": [
         {
             "name": "guzzlehttp/psr7",
@@ -436,56 +436,6 @@
             "time": "2017-07-28T06:06:09+00:00"
         },
         {
-            "name": "tightenco/collect",
-            "version": "v5.5.49",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tighten/collect.git",
-                "reference": "79e6bbf22da0e685c8122030374e5db953750b3b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tighten/collect/zipball/79e6bbf22da0e685c8122030374e5db953750b3b",
-                "reference": "79e6bbf22da0e685c8122030374e5db953750b3b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0",
-                "symfony/var-dumper": "~3.3"
-            },
-            "require-dev": {
-                "mockery/mockery": "~1.0",
-                "nesbot/carbon": "^1.26.3",
-                "phpunit/phpunit": "~6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/Collect/Support/helpers.php",
-                    "src/Collect/Support/alias.php"
-                ],
-                "psr-4": {
-                    "Tightenco\\Collect\\": "src/Collect"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
-                }
-            ],
-            "description": "Collect - Illuminate Collections as a separate package.",
-            "keywords": [
-                "collection",
-                "laravel"
-            ],
-            "time": "2019-07-10T19:10:41+00:00"
-        },
-        {
             "name": "woocommerce/action-scheduler",
             "version": "dev-master",
             "source": {
@@ -529,9 +479,7 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": {
-        "php": ">=5.5.9"
-    },
+    "platform": [],
     "platform-dev": [],
     "platform-overrides": {
         "php": "7.0.0"
