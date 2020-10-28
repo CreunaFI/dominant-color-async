@@ -36,10 +36,12 @@ const store = new Store({
           commit('updateData', response.data);
           setTimeout(() => {
             dispatch('getData');
-          }, 1000);
-          console.log(response);
+          }, 5000);
         })
         .catch(error => {
+          setTimeout(() => {
+            dispatch('getData');
+          }, 5000);
           console.log(error);
         });
     },
