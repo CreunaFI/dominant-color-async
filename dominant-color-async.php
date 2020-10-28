@@ -15,5 +15,6 @@ require __DIR__ . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
 
 $dominant_color_async = new \DominantColorAsync\DominantColorAsync(
     plugin_basename(__FILE__),
-    plugin_dir_path(__FILE__)
+    plugin_dir_path(__FILE__),
+    __FILE__
 );

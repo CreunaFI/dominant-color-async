@@ -5,17 +5,22 @@ namespace DominantColorAsync;
 use ActionScheduler_Store;
 use ColorThief\ColorThief;
 use Intervention\Image\ImageManagerStatic;
+use Puc_v4_Factory;
 use WP_Query;
 
 class DominantColorAsync
 {
     private $plugin_basename;
     private $plugin_dir_path;
+    private $plugin_main_file;
 
-    public function __construct($plugin_basename, $plugin_dir_path)
+    public function __construct($plugin_basename, $plugin_dir_path, $plugin_main_file)
     {
         $this->plugin_basename = $plugin_basename;
         $this->plugin_dir_path = $plugin_dir_path;
+        $this->plugin_main_file = $plugin_main_file;
+        $this->setup_auto_updater();
+
 
         add_filter('dca_process_dominant_color', [$this, 'process_dominant_color'], 10, 2);
         add_filter('dca_process_transparency', [$this, 'process_transparency'], 10, 2);
@@ -44,6 +49,17 @@ class DominantColorAsync
 
         add_action('wp_ajax_dominant_color_status', [$this, 'check_status']);
         add_action('wp_ajax_dominant_color_process_all', [$this, 'process_all']);
+    }
+
+    public function setup_auto_updater()
+    {
+        $update_checker = Puc_v4_Factory::buildUpdateChecker(
+            'https://github.com/CreunaFI/dominant-color-async',
+            $this->plugin_main_file,
+            'dominant-color-async'
+        );
+
+        $update_checker->getVcsApi()->enableReleaseAssets();
     }
 
     public function media_fields($form_fields, $post)
