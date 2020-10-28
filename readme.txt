@@ -35,6 +35,7 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 * Breaking change: Minimum supported PHP version is now 7.0
 * Breaking change: Minimum supported WordPress version is now 5.0
 * Breaking change: Support for Packagist has been removed since Packagist does not support compiled assets like JavaScript or CSS unless they are committed to the Git repository. Please download the latest release from GitHub releases. Auto-updater is included in the plugin. If you need install the plugin using Composer, set up your own [SatisPress](https://github.com/cedaro/satispress) repository.
+* Fix: Don't show dominant color field on attachments that are not images
 * Change: Changed library used for async processing to woocommerce/action-scheduler instead of deliciousbrains/wp-background-processing since Action Scheduler is more actively supported and it handles large amount of actions better
 
 = 1.1.3 =
