@@ -1,7 +1,6 @@
 # Dominant color async
 
-[![Build Status](https://travis-ci.com/CreunaFI/dominant-color-async.svg?branch=master)](https://travis-ci.com/CreunaFI/dominant-color-async)
- [![Packagist](https://img.shields.io/packagist/v/joppuyo/dominant-color-async.svg)](https://packagist.org/packages/joppuyo/dominant-color-async)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/CreunaFI/dominant-color-async/Build?logo=github)](https://github.com/CreunaFI/dominant-color-async/actions)
 
 Calculate the dominant color for every image in WordPress, asynchronously
 
