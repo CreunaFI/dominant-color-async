@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f4dc84508a6c961823b8aa11c046a90",
+    "content-hash": "a7eb839487233224cd0425135034c444",
     "packages": [
         {
             "name": "guzzlehttp/psr7",
@@ -437,16 +437,16 @@
         },
         {
             "name": "woocommerce/action-scheduler",
-            "version": "dev-master",
+            "version": "3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/action-scheduler.git",
-                "reference": "c899c34a06a987c5143218672c6c9e544c73fed4"
+                "reference": "275d0ba54b1c263dfc62688de2fa9a25a373edf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/c899c34a06a987c5143218672c6c9e544c73fed4",
-                "reference": "c899c34a06a987c5143218672c6c9e544c73fed4",
+                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/275d0ba54b1c263dfc62688de2fa9a25a373edf8",
+                "reference": "275d0ba54b1c263dfc62688de2fa9a25a373edf8",
                 "shasum": ""
             },
             "require-dev": {
@@ -468,15 +468,13 @@
             ],
             "description": "Action Scheduler for WordPress and WooCommerce",
             "homepage": "https://actionscheduler.org/",
-            "time": "2020-09-16T16:31:30+00:00"
+            "time": "2020-05-12T16:22:33+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "woocommerce/action-scheduler": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
