@@ -31,6 +31,9 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 2.0.2 =
+* Fix: Add an admin notice instead of crashing if dependencies are missing
+
 = 2.0.1 =
 * Fix: Fix fatal error due to wrong dependency version
 
