@@ -9,6 +9,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+
+    - name: Set node version
+      run: nvm install
       
     - name: Install dependencies
       run: npm install
