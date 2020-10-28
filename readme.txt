@@ -1,10 +1,10 @@
 === Dominant color async ===
 Contributors: joppuyo
 Tags: dominant, color, asynchronous
-Requires at least: 4.9
-Tested up to: 5.1
-Requires PHP: 5.5.9
-License: License: GPLv3 or later
+Requires at least: 5.0
+Tested up to: 5.5
+Requires PHP: 7.0.0
+License: GPLv3 or later
 
 Calculate the dominant color for every image in WordPress, asynchronously
 
@@ -30,6 +30,12 @@ One thing missing from this plugin is the "palette" functionality of Dominant Co
 Please report issues and send pull requests on the [GitHub repo](https://github.com/CreunaFI/dominant-color-async).
 
 == Changelog ==
+
+= 2.0.0 =
+* Breaking change: Minimum supported PHP version is now 7.0
+* Breaking change: Minimum supported WordPress version is now 5.0
+* Breaking change: Support for Packagist has been removed since Packagist does not support compiled assets like JavaScript or CSS unless they are committed to the Git repository. Please download the latest release from GitHub releases. Auto-updater is included in the plugin. If you need install the plugin using Composer, set up your own [SatisPress](https://github.com/cedaro/satispress) repository.
+* Change: Changed library used for async processing to woocommerce/action-scheduler instead of deliciousbrains/wp-background-processing since Action Scheduler is more actively supported and it handles large amount of actions better
 
 = 1.1.3 =
 * Fix: Make query more efficient
