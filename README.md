@@ -11,7 +11,7 @@ Dominant color async calculates the dominant color for images in your WordPress 
 
 ## How is this different from Dominant Color plugin?
 
-[Dominant Color](https://wordpress.org/plugins/dominant-color/) calculates the dominant color synchronously as you are uploading them. This can sometimes take a long time and lead to frustrating experience. Dominant color async will do this processing in the background using [WordPress Background Processing](https://github.com/A5hleyRich/wp-background-processing) library, leading to more fluid admin experience.
+[Dominant Color](https://wordpress.org/plugins/dominant-color/) calculates the dominant color synchronously as you are uploading them. This can sometimes take a long time and lead to frustrating experience. Dominant color async will do this processing in the background using [Action Scheduler](https://actionscheduler.org/) library, leading to more fluid admin experience.
 
 Dominant color async will also allow you to calculate color information for images missing it as a batch process. This makes it easy to integrate the plugin into an existing site.
 
