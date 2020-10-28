@@ -4,7 +4,7 @@ Tags: dominant, color, asynchronous
 Requires at least: 5.0
 Tested up to: 5.5
 Requires PHP: 7.0.0
-License: GPLv3 or later
+License: GPLv2 or later
 
 Calculate the dominant color for every image in WordPress, asynchronously
 

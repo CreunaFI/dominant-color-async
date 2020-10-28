@@ -1,20 +1,7 @@
 {
   "name": "dominant-color-async",
   "description": "Get the dominant color of an image",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CreunaFI/dominant-color-async.git"
-  },
   "author": "Johannes Siipola",
-  "license": "GPL-3.0+",
-  "bugs": {
-    "url": "https://github.com/CreunaFI/dominant-color-async/issues"
-  },
-  "homepage": "https://github.com/CreunaFI/dominant-color-async#readme",
   "devDependencies": {
     "@prettier/plugin-php": "^0.6.0",
     "prettier": "^1.14.2",
