@@ -2,6 +2,7 @@
 
 namespace DominantColorAsync;
 
+use ActionScheduler_Store;
 use ColorThief\ColorThief;
 use Intervention\Image\ImageManagerStatic;
 use WP_Query;
@@ -308,12 +309,103 @@ class DominantColorAsync
 
     public function check_status()
     {
-        return false;
+        $in_progress = false;
+
+        $dominant_color_actions = as_get_scheduled_actions([
+            'hook' => 'dca_process_dominant_color',
+            'status' => ActionScheduler_Store::STATUS_PENDING,
+        ], 'ids');
+
+
+        $transparency_actions = as_get_scheduled_actions([
+            'hook' => 'dca_process_transparency',
+            'status' => ActionScheduler_Store::STATUS_PENDING,
+        ], 'ids');
+
+        $dominant_color_actions_2 = as_get_scheduled_actions([
+            'hook' => 'dca_process_dominant_color',
+            'status' => ActionScheduler_Store::STATUS_RUNNING,
+        ], 'ids');
+
+
+        $transparency_actions_2 = as_get_scheduled_actions([
+            'hook' => 'dca_process_transparency',
+            'status' => ActionScheduler_Store::STATUS_RUNNING,
+        ], 'ids');
+
+        error_log(print_r($transparency_actions, true));
+
+        if (
+            count($dominant_color_actions) ||
+            count($transparency_actions) ||
+            count($dominant_color_actions_2) ||
+            count($transparency_actions_2)
+        ) {
+            $in_progress = true;
+        }
+
+        $total_query = new WP_Query([
+            'post_status' => 'inherit',
+            'post_type' => 'attachment',
+            'posts_per_page' => -1,
+            'fields' => 'ids',
+            'post_mime_type' => 'image/jpeg, image/gif, image/png'
+        ]);
+        $total = $total_query->post_count;
+
+        $processed_query = new WP_Query([
+            'post_status' => 'inherit',
+            'post_type' => 'attachment',
+            'posts_per_page' => -1,
+            'fields' => 'ids',
+            'post_mime_type' => 'image/jpeg, image/gif, image/png',
+            'meta_query' => [
+                [
+                    'key' => 'dominant_color',
+                    'compare' => 'EXISTS',
+                ],
+                [
+                    'key' => 'has_transparency',
+                    'compare' => 'EXISTS',
+                ],
+            ],
+        ]);
+        $processed = $processed_query->post_count;
+        wp_send_json([
+            'in_progress' => $in_progress,
+            'total' => $total,
+            'processed_images' => $processed,
+            'unprocessed_images' => $total - $processed,
+        ]);
+        wp_die();
     }
 
     public function process_all()
     {
-        return false;
+        $unprocessed_query = new WP_Query([
+            'post_status' => 'inherit',
+            'post_type' => 'attachment',
+            'posts_per_page' => -1,
+            'post_mime_type' => 'image/jpeg, image/gif, image/png',
+            'fields' => 'ids',
+            'meta_query' =>
+                [
+                    'relation' => 'OR',
+                    [
+                        'key' => 'dominant_color',
+                        'compare' => 'NOT EXISTS',
+                    ],
+                    [
+                        'key' => 'has_transparency',
+                        'compare' => 'NOT EXISTS',
+                    ],
+                ],
+        ]);
+
+        foreach ($unprocessed_query->posts as $attachment_id) {
+            as_enqueue_async_action('dca_process_dominant_color', [$attachment_id]);
+            as_enqueue_async_action('dca_process_transparency', [$attachment_id]);
+        }
     }
 
     public function rgb_to_hex($array)
