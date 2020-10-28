@@ -31,6 +31,9 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 2.0.1 =
+* Fix: Fix fatal error due to wrong dependency version
+
 = 2.0.0 =
 * Breaking change: Minimum supported PHP version is now 7.0
 * Breaking change: Minimum supported WordPress version is now 5.0
