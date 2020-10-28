@@ -28,7 +28,7 @@ jobs:
     - name: Release
       run: |
         "mkdir -p ${{env.plugin-slug}}"
-        "rsync -av * $plugin-slug --exclude ${{env.plugin-slug}} --exclude node_modules --exclude .git --exclude .github --exclude .gitignore --exclude .editorconfig --exclude .prettierrc.js"
+        "rsync -av * ${{env.plugin-slug}} --exclude ${{env.plugin-slug}} --exclude node_modules --exclude .git --exclude .github --exclude .gitignore --exclude .editorconfig --exclude .prettierrc.js"
         "zip -r ${{env.plugin-slug}}.zip ${{env.plugin-slug}}"
       
     - uses: actions/upload-artifact@master
