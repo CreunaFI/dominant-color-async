@@ -15,3 +15,14 @@ Dominant color async calculates the dominant color for images in your WordPress 
 Dominant color async will also allow you to calculate color information for images missing it as a batch process. This makes it easy to integrate the plugin into an existing site.
 
 One thing missing from this plugin is the "palette" functionality of Dominant Color which generates multiple dominant colors for single image and allows you to pick from one of these. If you need this functionality, then Dominant Color is a better choice.
+
+## Requirements
+
+* WordPress 5.0+
+* PHP 7.0+
+
+## Installation
+
+1. Download latest version on [GitHub releases](https://github.com/CreunaFI/dominant-color-async/releases).
+2. Upload zip in WordPress admin plugins page or unzip in the `wp-plugins` directory
+3. See the plugin settings page under Media
