@@ -348,9 +348,7 @@ class DominantColorAsync
             'hook' => 'dca_process_transparency',
             'status' => ActionScheduler_Store::STATUS_RUNNING,
         ], 'ids');
-
-        error_log(print_r($transparency_actions, true));
-
+        
         if (
             count($dominant_color_actions) ||
             count($transparency_actions) ||
