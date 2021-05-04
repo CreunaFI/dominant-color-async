@@ -2,7 +2,7 @@
 Contributors: joppuyo
 Tags: dominant, color, asynchronous
 Requires at least: 5.0
-Tested up to: 5.5
+Tested up to: 5.7
 Requires PHP: 7.0.0
 License: GPLv2 or later
 
@@ -30,6 +30,9 @@ One thing missing from this plugin is the "palette" functionality of Dominant Co
 Please report issues and send pull requests on the [GitHub repo](https://github.com/CreunaFI/dominant-color-async).
 
 == Changelog ==
+
+= 2.0.3 =
+* Fix: Update dependencies
 
 = 2.0.2 =
 * Fix: Add an admin notice instead of crashing if dependencies are missing
