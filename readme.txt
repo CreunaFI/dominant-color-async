@@ -31,6 +31,9 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 == Changelog ==
 
+= 2.0.4 =
+* Fix: Update dependencies, again
+
 = 2.0.3 =
 * Fix: Update dependencies
 
