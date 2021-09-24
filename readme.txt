@@ -71,7 +71,7 @@ Please report issues and send pull requests on the [GitHub repo](https://github.
 
 * Feature: Add filters for getting dominant color and transparency  
 * Fix: Fix error when ImageMagick is installed but GD is not  
-* Fix: Updated compatiblity to WordPress 5.8
+* Fix: Updated compatibility to WordPress 5.8
 
 ### 2.0.4
 
