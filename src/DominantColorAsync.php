@@ -25,6 +25,9 @@ class DominantColorAsync
             'driver' => extension_loaded('imagick') ? 'imagick' : 'gd',
         ]);
 
+        add_filter('dca_get_image_transparency', [$this, 'get_image_transparency'], 10, 2);
+        add_filter('dca_get_image_dominant_color', [$this, 'get_image_dominant_color'], 10, 2);
+
         add_filter('dca_process_dominant_color', [$this, 'process_dominant_color'], 10, 2);
         add_filter('dca_process_transparency', [$this, 'process_transparency'], 10, 2);
         add_action('admin_enqueue_scripts', [$this, 'load_admin_styles']);
@@ -52,6 +55,40 @@ class DominantColorAsync
 
         add_action('wp_ajax_dominant_color_status', [$this, 'check_status']);
         add_action('wp_ajax_dominant_color_process_all', [$this, 'process_all']);
+    }
+
+    /**
+     * @param $value
+     * @param $image_id
+     * @return bool|mixed|null
+     */
+    public function get_image_transparency($value, $image_id)
+    {
+        if (!metadata_exists('post', $image_id, 'has_transparency')) {
+            return null;
+        }
+        if (get_post_meta($image_id, 'has_transparency', true) === '1') {
+            return true;
+        }
+        if (get_post_meta($image_id, 'has_transparency', true) === '') {
+            return false;
+        }
+        return $value;
+    }
+
+    /**
+     * @param $value
+     * @param $image_id
+     * @return string|mixed|null
+     */
+    public function get_image_dominant_color($value, $image_id) {
+        if (!metadata_exists('post', $image_id, 'dominant_color')) {
+            return null;
+        }
+        if (!empty(get_post_meta($image_id, 'dominant_color', true))) {
+            return get_post_meta($image_id, 'dominant_color', true);
+        }
+        return $value;
     }
 
     public function setup_auto_updater()
