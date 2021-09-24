@@ -9,7 +9,7 @@ License: GPLv2 or later
 Calculate the dominant color for every image in WordPress, asynchronously
 
 == Description ==
-Dominant color async calculates the dominant color for images in your WordPress media gallery. It will also tell you if your image has transparency, or not. You can access this information using the `dominant_color` and `has_transparency` post meta keys. This information will be calculated after you upload images in the media gallery.
+Dominant color async calculates the dominant color for images in your WordPress media gallery. It will also tell you if your image has transparency, or not. You can access this information using the `dca_get_image_dominant_color` and `dca_get_image_transparency` filters. This information will be calculated after you upload images in the media gallery.
 
 == Installation ==
 1. Upload the plugin folder to the /wp-content/plugins/ directory
@@ -30,6 +30,10 @@ One thing missing from this plugin is the "palette" functionality of Dominant Co
 Please report issues and send pull requests on the [GitHub repo](https://github.com/CreunaFI/dominant-color-async).
 
 == Changelog ==
+
+= 2.1.0 =
+* Feature: Add functions for getting dominant color and transparency
+* Fix: Fix error when ImageMagick is installed but GD is not
 
 = 2.0.4 =
 * Fix: Update dependencies, again
