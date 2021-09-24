@@ -8,7 +8,7 @@ Calculate the dominant color for every image in WordPress, asynchronously
 
 ## What does it do?
 
-Dominant color async calculates the dominant color for images in your WordPress media gallery. It will also tell you if your image has transparency, or not. You can access this information using the `dca_get_image_dominant_color` and `dca_get_image_transparency` post meta keys. This information will be calculated after you upload images in the media gallery.
+Dominant color async calculates the dominant color for images in your WordPress media gallery. It will also tell you if your image has transparency, or not. You can access this information using the `dca_get_image_dominant_color` and `dca_get_image_transparency` filters. This information will be calculated after you upload images in the media gallery.
 
 ## Getting dominant color
 
