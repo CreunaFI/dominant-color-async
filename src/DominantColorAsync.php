@@ -21,6 +21,9 @@ class DominantColorAsync
         $this->plugin_main_file = $plugin_main_file;
         $this->setup_auto_updater();
 
+        ImageManagerStatic::configure([
+            'driver' => extension_loaded('imagick') ? 'imagick' : 'gd',
+        ]);
 
         add_filter('dca_process_dominant_color', [$this, 'process_dominant_color'], 10, 2);
         add_filter('dca_process_transparency', [$this, 'process_transparency'], 10, 2);
