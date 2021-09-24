@@ -8,7 +8,40 @@ Calculate the dominant color for every image in WordPress, asynchronously
 
 ## What does it do?
 
-Dominant color async calculates the dominant color for images in your WordPress media gallery. It will also tell you if your image has transparency, or not. You can access this information using the `dominant_color` and `has_transparency` post meta keys. This information will be calculated after you upload images in the media gallery.
+Dominant color async calculates the dominant color for images in your WordPress media gallery. It will also tell you if your image has transparency, or not. You can access this information using the `dca_get_image_dominant_color` and `dca_get_image_transparency` post meta keys. This information will be calculated after you upload images in the media gallery.
+
+## Getting dominant color
+
+```php
+$image_id = 123;
+
+// Returns a hex code string or null if dominant color hasn't been calculated yet 
+$dominant_color = apply_filters('dca_get_dominant_color', null, $image_id);
+
+if ($dominant_color !== null) {
+    echo "Image dominant color: " . $dominant_color;
+} else if ($dominant_color === null) {
+    echo "Image dominant color hasn't been calculated yet.";
+}
+```
+
+## Getting transparency
+
+```php
+$image_id = 123;
+
+// Returns either true, false or null if transparency hasn't been calculated yet
+$has_transparency = apply_filters('dca_get_transparency', null, $image_id);
+
+// Note: use strict comparison here instead of a shorthand to differentiate between false and null
+if ($has_transparency === true) {
+    echo "Image has transparency";
+} else if ($has_transparency === false) {
+    echo "Image doesn't have transparency";
+} else if ($has_transparency === null) {
+    echo "Image transparency hasn't been calculated yet.";
+}
+```
 
 ## How is this different from Dominant Color plugin?
 

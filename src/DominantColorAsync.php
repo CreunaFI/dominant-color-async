@@ -25,8 +25,8 @@ class DominantColorAsync
             'driver' => extension_loaded('imagick') ? 'imagick' : 'gd',
         ]);
 
-        add_filter('dca_get_image_transparency', [$this, 'get_image_transparency'], 10, 2);
-        add_filter('dca_get_image_dominant_color', [$this, 'get_image_dominant_color'], 10, 2);
+        add_filter('dca_get_transparency', [$this, 'get_image_transparency'], 10, 2);
+        add_filter('dca_get_dominant_color', [$this, 'get_image_dominant_color'], 10, 2);
 
         add_filter('dca_process_dominant_color', [$this, 'process_dominant_color'], 10, 2);
         add_filter('dca_process_transparency', [$this, 'process_transparency'], 10, 2);
