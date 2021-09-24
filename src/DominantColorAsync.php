@@ -73,7 +73,9 @@ class DominantColorAsync
         if (get_post_meta($image_id, 'has_transparency', true) === '') {
             return false;
         }
-        return $value;
+
+        // Fall through to null
+        return null;
     }
 
     /**
@@ -88,7 +90,9 @@ class DominantColorAsync
         if (!empty(get_post_meta($image_id, 'dominant_color', true))) {
             return get_post_meta($image_id, 'dominant_color', true);
         }
-        return $value;
+
+        // Fall through to null
+        return null;
     }
 
     public function setup_auto_updater()
