@@ -240,16 +240,26 @@ class DominantColorAsync
             return false;
         }
 
+        // Ask Offload Media to nicely copy the image back to the file system
+        add_filter('as3cf_get_attached_file_copy_back_to_local', '__return_true');
+
         $base_dir = wp_upload_dir()['basedir'];
         $image = null;
 
         if ($this->validate_medium_image_size($metadata)) {
             // We have medium image to work with
-            $full_path = $base_dir . '/' . dirname($metadata['file']) . '/' . $metadata['sizes']['medium']['file'];
+            $full_path = wp_get_attachment_image_src($attachment_id, 'medium');
+            if ($full_path === false) {
+                throw new \Exception('Failed to get medium thumbnail');
+            }
+            $full_path = $full_path[0];
             $image = ImageManagerStatic::make($full_path);
         } else {
             // We need to generate medium image
-            $image_path = $base_dir . '/' . $metadata['file'];
+            $image_path = get_attached_file($attachment_id);
+            if ($image_path === false) {
+                throw new \Exception('Failed to full size image');
+            }
             $image = $this->generate_thumbnail($image_path);
         }
 
@@ -271,17 +281,26 @@ class DominantColorAsync
      */
     public function calculate_dominant_color($attachment_id, $metadata)
     {
-        $base_dir = wp_upload_dir()['basedir'];
+        // Ask Offload Media to nicely copy the image back to the file system
+        add_filter('as3cf_get_attached_file_copy_back_to_local', '__return_true');
 
         $dominant_color = null;
 
         if ($this->validate_medium_image_size($metadata)) {
             // We have medium image to work with
-            $full_path = $base_dir . '/' . dirname($metadata['file']) . '/' . $metadata['sizes']['medium']['file'];
+            $full_path = wp_get_attachment_image_src($attachment_id, 'medium');
+            if ($full_path === false) {
+                throw new \Exception('Failed to get medium thumbnail');
+            }
+            $full_path = $full_path[0];
+
             $dominant_color = ColorThief::getColor($full_path, 1);
         } else {
             // We need to generate medium image
-            $image_path = $base_dir . '/' . $metadata['file'];
+            $image_path = get_attached_file($attachment_id);
+            if ($image_path === false) {
+                throw new \Exception('Failed to full size image');
+            }
             $image = $this->generate_thumbnail($image_path);
             $dominant_color = ColorThief::getColor($image->getCore(), 1);
         }
